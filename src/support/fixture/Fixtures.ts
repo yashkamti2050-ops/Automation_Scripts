@@ -1,6 +1,6 @@
 import { test as base, expect } from '@playwright/test';
 import { LoginPage } from '../page/Login';
-import { ProfilePage } from '../page/ProfilePage';
+import { ProfilePage} from '../page/ProfilePage';
 import { ordermangementpage } from '../page/OrderMangementpage';
 import { testData } from '../Datastorage/testdata';
 
