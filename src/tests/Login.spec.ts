@@ -8,7 +8,7 @@ test.describe('Login', () => {
     await login.loginpageNavigate();
   })
 
-  test('Login functionality flow', async ({ login }) => {
+  test.only('Login functionality flow', async ({ login }) => {
     await login.login_Page();
   })
 
