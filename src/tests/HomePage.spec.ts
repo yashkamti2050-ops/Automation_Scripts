@@ -1,17 +1,17 @@
 import { test, expect } from '../support/fixture/Fixtures';
 import { HomePage } from '../support/page/HomePage';
 
-test.describe('Card Payment', () => {
+test.describe('Payment Flow', () => {
 
     // test.beforeEach('Login and navigate', async ({ login }) => {
     //     await login.loginpageNavigate();
     //     await login.login_Page();
     // });
 
-    // test.only('Card payment flow', async ({ page }) => {
-    //     const homePage = new HomePage(page);
-    //     await homePage.createCardorder();
-    // });
+    test('Cash Payment flow', async ({ page }) => {
+        const homePage = new HomePage(page);
+        await homePage.createCardorder();
+    });
 
 
     test.skip('Cash payment flow', async ({ page, login }) => {

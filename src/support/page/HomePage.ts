@@ -203,5 +203,13 @@ export class HomePage {
 
         return 'timeout';
     }
-}
+
+
+
+    }
+        
+    
+
+     
+
 

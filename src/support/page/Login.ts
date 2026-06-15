@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
 import logindata from "../Datastorage/Cred.json";
 export class LoginPage {
-    conitnueEmail: Locator
+    continueEmail: Locator
     signinEmail: Locator
     continueButton: Locator
     passwordField: Locator
@@ -13,7 +13,7 @@ export class LoginPage {
 
     constructor(private page: Page) {
         this.page.setDefaultTimeout(10000);
-        this.conitnueEmail = this.page.getByText('Continue with email');
+        this.continueEmail = this.page.getByText('Continue with email');
         this.signinEmail = this.page.locator('[data-test-id="signin-email-field"]');
         this.continueButton = this.page.getByText('Continue');
         this.passwordField = this.page.locator('[data-test-id="password"]');
@@ -26,10 +26,10 @@ export class LoginPage {
 
 
     async loginpageNavigate() {
-        await this.page.goto('https://ll-reactivate-staging-env.web.app/');
+        await this.page.goto('/');
     }
     async login_Page() {
-        await this.conitnueEmail.click();
+        await this.continueEmail.click();
 
         await expect(this.signinEmail).toBeVisible();
         await this.signinEmail.fill(logindata.Validuser.Username);

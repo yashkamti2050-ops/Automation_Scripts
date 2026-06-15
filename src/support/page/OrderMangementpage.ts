@@ -4,13 +4,17 @@ export class ordermangementpage {
 
     orderButton: Locator
     searchButton: Locator
-    newOrderbutton: Locator
+    newOrderButton: Locator
+    actionButton: Locator;
+    backButton: Locator;
 
     constructor(private page: Page) {
         this.page.setDefaultTimeout(10000);
-        this.orderButton = this.page.locator('data-test-id="cashier-home-orders-trigger"');
-        this.searchButton = this.page.getByTestId('.btn-label-sm').filter({ hasText: 'Search' });
-        this.newOrderbutton = this.page.getByTestId('[data-test-id="new-orders-button"]');
+        this.orderButton = this.page.locator('[data-test-id="cashier-home-orders-trigger"]');
+        this.searchButton = this.page.locator('[data-test-id="orders-button"]');
+        this.newOrderButton = this.page.locator('[data-test-id="new-orders-button"]');
+        this.actionButton = this.page.locator('[data-test-id="actions-button"]');
+        this.backButton = this.page.locator('[data-test-id="close-button"]');
 
 
     }
@@ -22,16 +26,16 @@ export class ordermangementpage {
     }
 
     async actionButtonClick() {
-        await expect(this.orderButton).toBeVisible();
-        await this.orderButton.click();
+        await expect(this.actionButton).toBeVisible();
+        await this.actionButton.click();
     }
 
     async searchButtonClick() {
-        await expect(this.orderButton).toBeVisible();
-        await this.orderButton.click();
         await expect(this.searchButton).toBeVisible();
-        await expect(this.newOrderbutton).toBeVisible();
-        await this.newOrderbutton.click();
+        await this.searchButton.click();
+        await this.backButton.click();
+        await expect(this.newOrderButton).toBeVisible();
+        await this.newOrderButton.click();
         await expect(this.page).toHaveURL('https://ll-reactivate-staging-env.web.app/cashier-home');
     }
 }
