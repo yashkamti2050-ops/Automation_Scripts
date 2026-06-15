@@ -41,7 +41,6 @@ export class LoginPage {
         // await this.page.waitForLoadState('networkidle');
         await this.Cashier.click();
         await this.page.getByRole('button', { name: 'Clan-AP Restaurant' }).click();
-        await this.page.waitForTimeout(10000);
         await expect(this.navPanel).toBeVisible();
 
     }
