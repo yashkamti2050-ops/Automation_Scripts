@@ -9,7 +9,7 @@ test.describe('Order managemnet page', () => {
         await orderManagementPage.omNavigate();
 
     });
-    test ('click', async ({ orderManagementPage }) => {
+    test('click', async ({ orderManagementPage }) => {
         await orderManagementPage.actionButtonClick();
         await orderManagementPage.searchButtonClick();
     });

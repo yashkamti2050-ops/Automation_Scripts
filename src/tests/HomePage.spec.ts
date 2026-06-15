@@ -14,7 +14,7 @@ test.describe('Card Payment', () => {
     // });
 
 
-    test.only('Cash payment flow', async ({ page, login }) => {
+    test('Cash payment flow', async ({ page, login }) => {
         const homePage = new HomePage(page);
         await login.loginpageNavigate();
         await login.login_Page();
