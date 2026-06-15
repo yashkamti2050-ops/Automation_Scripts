@@ -3,15 +3,20 @@ import { HomePage } from '../support/page/HomePage';
 
 test.describe('Payment Flow', () => {
 
-    // test.beforeEach('Login and navigate', async ({ login }) => {
-    //     await login.loginpageNavigate();
-    //     await login.login_Page();
-    // });
+    test.beforeEach('Login and navigate', async ({ login }) => {
+        await login.loginpageNavigate();
+        await login.login_Page();
+    });
 
     test('Cash Payment flow', async ({ page }) => {
         const homePage = new HomePage(page);
-        await homePage.createCardorder();
+        await homePage.createCashorder();
     });
+
+//    test('Voucher payment flow', async ({ page }) => {
+//         const homePage = new HomePage(page);
+//         await homePage.voucherPage();
+//     });
 
 
     test.skip('Cash payment flow', async ({ page, login }) => {

@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { TIMEOUT } from "node:dns";
 export type PaymentResult = 'success' | 'failed' | 'timeout';
 export class HomePage {
 
@@ -79,12 +80,13 @@ export class HomePage {
     }
 
     async createCashorder() {
+        await this.page.waitForTimeout(12000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         // await this.cashButton.click();
-        await this.cardButton.click();
-        await expect(this.cardButton).toBeVisible();
-        await this.cardButton.click();
+        await this.cashButton.click();
+        await expect(this.cashButton).toBeVisible();
+        await this.cashButton.click();
         await this.placeOrder.click();
         await expect(this.exactAmount).toBeVisible();
         await this.exactAmount.click();
@@ -99,6 +101,7 @@ export class HomePage {
     }
 
     async createVoucherorder() {
+        
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         await expect(this.voucherButton).toBeVisible();
@@ -206,10 +209,10 @@ export class HomePage {
 
 
 
-    }
-        
-    
+}
 
-     
+
+
+
 
 
