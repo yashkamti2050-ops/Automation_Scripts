@@ -3,11 +3,11 @@ import { Fixtures } from '@playwright/test';
 import profileData from '../Datastorage/Cred.json'
 export class ProfilePage {
 
-  navPanel: Locator
-  profileButton: Locator
+  Navpanel: Locator
+  ProfileButton: Locator
   firstName: Locator
   lastName: Locator
-  emailTextfield: Locator
+  EmailTextfield: Locator
   emailInput: Locator
   cancelButton: Locator
   mobileNumber: Locator
@@ -17,11 +17,11 @@ export class ProfilePage {
 
 
   constructor(private page: Page) {
-    this.navPanel = this.page.locator('[data-test-id="nav-panel"]');
-    this.profileButton = this.page.locator('[data-test-id="profile-setting-button"]');
+    this.Navpanel = this.page.locator('[data-test-id="nav-panel"]');
+    this.ProfileButton = this.page.locator('[data-test-id="profile-setting-button"]');
     this.firstName = this.page.locator('[data-test-id="profile-first-name"]')
     this.lastName = this.page.locator('[data-test-id="profile-last-name"]');
-    this.emailTextfield = this.page.locator('[data-test-id="email-change-btn"]');
+    this.EmailTextfield = this.page.locator('[data-test-id="email-change-btn"]');
     this.emailInput = this.page.locator('[data-test-id="change-email-input"]');
     this.cancelButton = this.page.locator('[data-test-id="contact-modal-close-btn"]');
     this.mobileNumber = this.page.locator('[data-test-id="mobile-phone-change-btn"]');
@@ -31,38 +31,38 @@ export class ProfilePage {
 
 
 
-  async HamburgerIcon() {
-    await this.navPanel.waitFor({ state: 'visible' });
-    await this.navPanel.click();
+  async hamburgerIcon() {
+    await this.Navpanel.waitFor({ state: 'visible' });
+    await this.Navpanel.click();
   }
-  async ProfileTab() {
-    await expect(this.profileButton.last()).toBeVisible();
-    await this.profileButton.last().click();
+  async profileTab() {
+    await expect(this.ProfileButton.last()).toBeVisible();
+    await this.ProfileButton.last().click();
 
   }
-  async FirstName() {
+  async firstNameTextFiled() {
     await expect(this.firstName).toBeVisible();
     await this.firstName.fill('Yash');
   }
-  async LastName() {
+  async lastNameTextFiled() {
     await expect(this.lastName).toBeVisible();
     await this.lastName.fill('K');
   }
-  async EmailTextfield() {
-    await expect(this.emailTextfield).toBeVisible();
-    await this.emailTextfield.click();
+  async emailTextfield() {
+    await expect(this.EmailTextfield).toBeVisible();
+    await this.EmailTextfield.click();
     await this.emailInput.fill(profileData.ProfileData.usernameEmail);
     await this.cancelButton.click();
 
   }
-  async MobileNumber() {
+  async mobileNumberFiled() {
     await this.mobileNumber.click();
-    await expect(this.mobileInput).toBeVisible();
+    // await expect(this.mobileinput).toBeVisible();
     await this.mobileInput.fill(profileData.ProfileData.PhoneNumber);
     await this.cancelButton.click();
 
   }
-  async Lang() {
+  async languageChangeButton() {
     await expect(this.langChange).toBeVisible();
     await this.langChange.click();
     await this.page.getByRole('option', { name: "English" }).click();

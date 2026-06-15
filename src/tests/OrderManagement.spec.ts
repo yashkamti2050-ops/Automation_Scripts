@@ -5,7 +5,7 @@ import { ordermangementpage } from '../support/pagemethods/OrderMangementpage';
 test.describe('Order managemnet page', () => {
     test.beforeEach(async ({ login, orderManagementPage }) => {
         await login.loginpageNavigate();
-        await login.login();
+        await login.login_Page();
         await orderManagementPage.omNavigate();
 
     });

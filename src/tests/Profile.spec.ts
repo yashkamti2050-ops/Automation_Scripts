@@ -4,8 +4,8 @@ import { ProfilePage } from '../support/pagemethods/ProfilePage';
 
 test.describe('Profile Page', () => {
     test.beforeEach(async ({ login, profilepage }) => {
-        await login.loginpageNavigate();
-        await login.login();
+        // await login.loginpageNavigate();
+        await login.login_Page();
         await profilepage.HamburgerIcon();
         await profilepage.ProfileTab();
     });
