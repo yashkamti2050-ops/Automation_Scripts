@@ -1,5 +1,5 @@
 import { test, expect } from '../support/fixture/Fixtures';
-import { HomePage } from '../support/pagemethods/HomePage';
+import { HomePage } from '../support/page/HomePage';
 
 test.describe('Card Payment', () => {
 

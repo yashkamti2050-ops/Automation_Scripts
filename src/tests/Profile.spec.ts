@@ -1,6 +1,6 @@
 import { test, expect } from '../support/fixture/Fixtures';
-import { LoginPage } from '../support/pagemethods/Login';
-import { ProfilePage } from '../support/pagemethods/ProfilePage';
+import { LoginPage } from '../support/page/Login';
+import { ProfilePage } from '../support/page/ProfilePage';
 
 test.describe('Profile Page', () => {
     test.beforeEach(async ({ login, profilepage }) => {

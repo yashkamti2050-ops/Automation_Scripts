@@ -1,7 +1,7 @@
 import { test as base, expect } from '@playwright/test';
-import { LoginPage } from '../pagemethods/Login';
-import { ProfilePage } from '../pagemethods/ProfilePage';
-import { ordermangementpage } from '../pagemethods/OrderMangementpage';
+import { LoginPage } from '../page/Login';
+import { ProfilePage } from '../page/ProfilePage';
+import { ordermangementpage } from '../page/OrderMangementpage';
 import { testData } from '../Datastorage/testdata';
 
 type MyFixtures = {
@@ -27,7 +27,7 @@ export const test = base.extend<MyFixtures>({
         await use(profilepage);
     }
 
-    
+
 
 });
 

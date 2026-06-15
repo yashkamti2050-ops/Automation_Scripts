@@ -1,6 +1,6 @@
 import { test, expect } from '../support/fixture/Fixtures';
-import { LoginPage } from '../support/pagemethods/Login';
-import { HomePage } from '../support/pagemethods/HomePage';
+import { LoginPage } from '../support/page/Login';
+import { HomePage } from '../support/page/HomePage';
 
 test.describe('Login', () => {
 
