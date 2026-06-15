@@ -40,6 +40,7 @@ export class HomePage {
     crossButton: Locator;
 
     constructor(private page: Page) {
+        this.page.setDefaultTimeout(10000);
         this.navPanel = this.page.locator('[data-test-id="nav-panel"]');
         this.cashierPage = this.page.locator('user-name');
         this.orderButton = this.page.locator('orders');

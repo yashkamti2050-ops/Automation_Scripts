@@ -17,6 +17,7 @@ export class ProfilePage {
 
 
   constructor(private page: Page) {
+    this.page.setDefaultTimeout(10000);
     this.navPanel = this.page.locator('[data-test-id="nav-panel"]');
     this.profileButton = this.page.locator('[data-test-id="profile-setting-button"]');
     this.firstName = this.page.locator('[data-test-id="profile-first-name"]')

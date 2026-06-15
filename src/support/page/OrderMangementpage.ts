@@ -1,4 +1,4 @@
-import { Locator,  Page, expect } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 // import { Fixtures } from './Fixtures';
 export class ordermangementpage {
 
@@ -7,7 +7,8 @@ export class ordermangementpage {
     newOrderbutton: Locator
 
     constructor(private page: Page) {
-        this.orderButton = this.page.getByTestId('[data-i18n="orders"]');
+        this.page.setDefaultTimeout(10000);
+        this.orderButton = this.page.locator('data-test-id="cashier-home-orders-trigger"');
         this.searchButton = this.page.getByTestId('.btn-label-sm').filter({ hasText: 'Search' });
         this.newOrderbutton = this.page.getByTestId('[data-test-id="new-orders-button"]');
 
