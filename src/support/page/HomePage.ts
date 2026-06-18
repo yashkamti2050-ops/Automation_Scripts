@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { TIMEOUT } from "node:dns";
+// import { testData } from "../Datastorage/testdata";
 export type PaymentResult = 'success' | 'failed' | 'timeout';
 export class HomePage {
 
@@ -28,7 +28,7 @@ export class HomePage {
     unspecified: Locator;
     placeOrder: Locator;
     cashDropDown: Locator;
-    moneyIn_Out: Locator;
+    moneyInOut: Locator;
     backButton: Locator;
     deleteIcon: Locator;
     voucherPage: Locator;
@@ -42,17 +42,16 @@ export class HomePage {
 
     constructor(private page: Page) {
         this.page.setDefaultTimeout(10000);
-        this.navPanel = this.page.locator('[data-test-id="nav-panel"]');
+        this.navPanel = this.page.getByTestId('nav-panel');
         this.cashierPage = this.page.locator('user-name');
-        this.orderButton = this.page.locator('orders');
         this.takeAway = this.page.locator('takeaway-tab-button');
         this.eatIn = this.page.locator('eatin-tab-button');
         this.delivery = this.page.locator('delivery-tab-button');
-        this.plusIcon = this.page.locator('[data-test-id="increase-quantity-btn"]').last();
+        this.plusIcon = this.page.getByTestId('increase-quantity-btn').last();
         this.minusIcon = this.page.locator('decrease-quantity-btn');
-        this.cardButton = this.page.locator('[data-test-id="payment-btn-card"]');
-        this.cashButton = this.page.locator('[data-test-id="payment-btn-cash"]');
-        this.laterButton = this.page.locator('payment-btn-later');
+        this.cardButton = this.page.getByTestId('payment-btn-card');
+        this.cashButton = this.page.getByTestId('payment-btn-cash');
+        this.laterButton = this.page.getByTestId('payment-btn-later');
         this.moreButton = this.page.locator('payment-btn-more');
         this.mobilePay = this.page.getByRole('button', { name: 'MobilePay' });
         this.voucherButton = this.page.getByRole('button', { name: 'Voucher' });
@@ -62,24 +61,26 @@ export class HomePage {
         this.discountCode = this.page.locator('selected-items-btn');
         this.notesButton = this.page.locator('instructions-btn');
         this.clearButton = this.page.locator('clear-cart-btn');
-        this.exactAmount = this.page.locator('[data-test-id="exact-amount-btn"]');
+        this.exactAmount = this.page.getByTestId('exact-amount-btn');
         this.otherAmount = this.page.locator('other-amount-btn');
         this.unspecified = this.page.locator('unspecified-open-btn');
-        this.placeOrder = this.page.locator('[data-test-id="place-order"]');
+        this.placeOrder = this.page.getByTestId('place-order');
         this.cashDropDown = this.page.locator('cash-dropdown-trigger');
-        this.moneyIn_Out = this.page.locator('cash-in-out-option');
+        this.moneyInOut = this.page.locator('cash-in-out-option');
         this.backButton = this.page.locator('amount-keypad-back-btn');
         this.deleteIcon = this.page.locator('remove-item-btn');
         this.voucherPage = this.page.locator('.keypad-container.keypad-container--fixed');
         this.keyPadButton = this.page.locator('.keypad-btn');
         this.continueButton = this.page.getByRole('button', { name: 'Continue' });
         this.orderDetailPop = this.page.locator('order-details-modal');
-        this.cancelButton = this.page.locator('[data-test-id="loading-icon"]');
+        this.cancelButton = this.page.getByTestId('loading-icon');
         this.noItemsText = this.page.locator('.cashier-rail-empty-state-text', { hasText: 'No items' });
-        this.crossButton = this.page.locator('[data-test-id="order-details-close-btn"]');
+        this.crossButton = this.page.getByTestId('order-details-close-btn');
+        this.orderButton = this.page.getByTestId('cashier-home-orders-trigger');
+
     }
 
-    async createCashorder() {
+    async createCashOrder() {
         await this.page.waitForTimeout(12000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
@@ -100,8 +101,8 @@ export class HomePage {
         await this.placeOrder.click();
     }
 
-    async createVoucherorder() {
-        
+    async createVoucherOrder() {
+
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         await expect(this.voucherButton).toBeVisible();
@@ -115,7 +116,7 @@ export class HomePage {
         await this.continueButton.click();
     }
 
-    async createCardorder(): Promise<void> {
+    async createCardOrder(): Promise<void> {
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         // await this.cashButton.click();
@@ -134,6 +135,8 @@ export class HomePage {
                 await this.page.waitForTimeout(5000);
                 await expect(this.noItemsText).toBeVisible();
                 console.log(' Card order complete — home screen confirmed');
+                await expect(this.orderButton).toBeVisible();
+
                 break;
 
             case 'failed':
@@ -142,6 +145,8 @@ export class HomePage {
                 await this.crossButton.click();
                 await expect(this.orderDetailPop).not.toBeVisible();
                 console.log(' Payment failed — modal closed, moving on');
+                await expect(this.orderButton).toBeVisible();
+
                 break;
 
             case 'timeout': {
@@ -153,9 +158,15 @@ export class HomePage {
                     await expect(this.orderDetailPop).not.toBeVisible();
                 }
                 console.log(' Timeout — cancelled and moved on');
+                await expect(this.orderButton).toBeVisible();
+
                 break;
+
             }
+
+
         }
+
     }
 
     async waitForPaymentCompletion(
@@ -205,9 +216,18 @@ export class HomePage {
         }
 
         return 'timeout';
+
     }
 
 
+    async addDiscount() {
+        await expect(this.discountCode).toBeVisible();
+        await this.discountButton.click();
+        await expect(this.totalBill).toBeVisible();
+        await this.totalBill.click();
+
+
+    }
 
 }
 

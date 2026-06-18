@@ -1,50 +1,47 @@
 import { Locator, Page, expect } from "@playwright/test";
-import logindata from "../Datastorage/Cred.json";
+import { testData } from "../Datastorage/testdata";
 export class LoginPage {
     continueEmail: Locator
     signinEmail: Locator
     continueButton: Locator
     passwordField: Locator
     loginButton: Locator
-    Cashier: Locator
+    cashier: Locator
     navPanel: Locator
-
-
 
     constructor(private page: Page) {
         this.page.setDefaultTimeout(10000);
         this.continueEmail = this.page.getByText('Continue with email');
-        this.signinEmail = this.page.locator('[data-test-id="signin-email-field"]');
+        this.signinEmail = this.page.getByTestId('signin-email-field');
         this.continueButton = this.page.getByText('Continue');
-        this.passwordField = this.page.locator('[data-test-id="password"]');
-        this.loginButton = this.page.locator('[data-test-id="login-button"]');
-        this.Cashier = this.page.getByText('Cashier');
-        this.navPanel = this.page.locator('[data-test-id="nav-panel"]');
-
-
+        this.passwordField = this.page.getByTestId('password');
+        this.loginButton = this.page.getByTestId('login-button');
+        this.cashier = this.page.getByText('Cashier');
+        this.navPanel = this.page.getByTestId('nav-panel');
     }
 
-
-    async loginpageNavigate() {
+    async loginPageNavigate() {
         await this.page.goto('/');
-    }
-    async login_Page() {
         await this.continueEmail.click();
-
         await expect(this.signinEmail).toBeVisible();
-        await this.signinEmail.fill(logindata.Validuser.Username);
+        await this.signinEmail.fill(testData.ValidUser.Username)
         await this.continueButton.click();
         await expect(this.passwordField).toBeVisible();
-        await this.passwordField.fill(logindata.Validuser.Password);
+        await this.passwordField.fill(testData.ValidUser.Password);
         await expect(this.loginButton).toBeVisible();
         await this.loginButton.click();
         // await this.page.waitForLoadState('networkidle');
-        await this.Cashier.click();
+        await this.cashier.click();
         await this.page.getByRole('button', { name: 'Clan-AP Restaurant' }).click();
         await this.page.waitForLoadState('networkidle');
         await expect(this.navPanel).toBeVisible();
-
     }
+
+
+
+
+
+
 }
 
 

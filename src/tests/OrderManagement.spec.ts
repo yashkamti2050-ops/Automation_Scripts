@@ -1,16 +1,22 @@
-import { test, expect } from '../support/fixture/Fixtures';
-import { LoginPage } from '../support/page/Login';
-import { ordermangementpage } from '../support/page/OrderMangementpage';
+import { test } from '../support/fixture/Fixtures';
 
-test.describe('Order managemnet page', () => {
-    test.beforeEach(async ({ login, orderManagementPage }) => {
-        await login.loginpageNavigate();
-        await login.login_Page();
-        await orderManagementPage.omNavigate();
+
+test.describe('paymentVerificationFlow', () => {
+
+    test.beforeEach(async ({ login, }) => {
+        await login.loginPageNavigate();
+
 
     });
-    test('click', async ({ orderManagementPage }) => {
-        await orderManagementPage.actionButtonClick();
-        await orderManagementPage.searchButtonClick();
+
+    test('verifyPaymentStatus', async ({ orderManagementPage }) => {
+
+        await orderManagementPage.navigateToOrderPage();
+        await orderManagementPage.clickOnOrderCard();
+        await orderManagementPage.checkPaymentStatus();
+
+
     });
+
 })
+

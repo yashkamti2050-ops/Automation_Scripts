@@ -1,13 +1,14 @@
-import { test as base, expect } from '@playwright/test';
+import { test as base } from '@playwright/test';
 import { LoginPage } from '../page/Login';
-import { ProfilePage} from '../page/ProfilePage';
-import { ordermangementpage } from '../page/OrderMangementpage';
-import { testData } from '../Datastorage/testdata';
+import { ProfilePage } from '../page/ProfilePage';
+import { OrderManagementPage } from '../page/OrderManagementPage';
+import { HomePage } from '../page/HomePage';
 
 type MyFixtures = {
     login: LoginPage;
-    orderManagementPage: ordermangementpage;
-    profilepage: ProfilePage;
+    orderManagementPage: OrderManagementPage;
+    profilePage: ProfilePage;
+    homePage: HomePage;
 }
 
 export const test = base.extend<MyFixtures>({
@@ -18,15 +19,19 @@ export const test = base.extend<MyFixtures>({
     },
 
     orderManagementPage: async ({ page }, use) => {
-        const orderManagementPage = new ordermangementpage(page);
+        const orderManagementPage = new OrderManagementPage(page);
         await use(orderManagementPage);
     },
 
-    profilepage: async ({ page }, use) => {
-        const profilepage = new ProfilePage(page);
-        await use(profilepage);
-    }
+    profilePage: async ({ page }, use) => {
+        const profilePage = new ProfilePage(page);
+        await use(profilePage);
+    },
 
+    homePage: async ({ page }, use) => {
+        const Home_Page = new HomePage(page);
+        await use(Home_Page);
+    }
 
 
 });

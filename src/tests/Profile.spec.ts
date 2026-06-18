@@ -1,20 +1,21 @@
-import { test, expect } from '../support/fixture/Fixtures';
+import { test } from '../support/fixture/Fixtures';
 
 
-test.describe('Profile Page', () => {
-    test.beforeEach(async ({ login, profilepage }) => {
-        await login.loginpageNavigate();
-        await login.login_Page();
-        await profilepage.HamburgerIcon();
-        await profilepage.ProfileTab();
+test.describe('Profile Page ', () => {
+    test.beforeEach(async ({ login }) => {
+        await login.loginPageNavigate();
+
+
     });
 
-    test('click', async ({ profilepage }) => {
-        await profilepage.FirstName();
-        await profilepage.LastName();
-        await profilepage.EmailTextfield();
-        await profilepage.MobileNumber();
-        await profilepage.Lang();
+    test('Updated profile page text field', async ({ profilePage }) => {
+        await profilePage.openNavPanel();
+        await profilePage.clickProfileTab();
+        await profilePage.enterFirstName();
+        await profilePage.enterLastName();
+        await profilePage.changeEmailTextfield();
+        await profilePage.changeMobileNumber();
+        await profilePage.changeLanguage();
     });
 });
 

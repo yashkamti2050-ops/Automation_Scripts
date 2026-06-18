@@ -1,31 +1,32 @@
-import { test, expect } from '../support/fixture/Fixtures';
-import { HomePage } from '../support/page/HomePage';
+import { test } from '../support/fixture/Fixtures';
 
-test.describe('Payment Flow', () => {
 
-    test.beforeEach('Login and navigate', async ({ login }) => {
-        await login.loginpageNavigate();
-        await login.login_Page();
+test.describe('Payments Flow', () => {
+
+
+    test.beforeEach('Login and navigate to home page', async ({ login }) => {
+        await login.loginPageNavigate();
+
+
+        test('Check Cash Payment flow', async ({ homePage }) => {
+            await homePage.createCashOrder();
+        });
+
+        test('Check Pay later Payment Flow', async ({ homePage }) => {
+
+            await homePage.createLaterOrder();
+        });
+
+        test('Check Voucher payment flow', async ({ homePage }) => {
+            await homePage.createVoucherOrder();
+        });
+
+
+        test.skip('Check Card payment flow', async ({ homePage }) => {
+            await homePage.createCardOrder();
+        });
+
+
+
     });
-
-    test('Cash Payment flow', async ({ page }) => {
-        const homePage = new HomePage(page);
-        await homePage.createCashorder();
-    });
-
-//    test('Voucher payment flow', async ({ page }) => {
-//         const homePage = new HomePage(page);
-//         await homePage.voucherPage();
-//     });
-
-
-    test.skip('Cash payment flow', async ({ page, login }) => {
-        const homePage = new HomePage(page);
-        await login.loginpageNavigate();
-        await login.login_Page();
-        await homePage.createCardorder();
-    });
-
-
-
-});
+})

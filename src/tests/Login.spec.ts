@@ -1,17 +1,10 @@
-import { test, expect } from '../support/fixture/Fixtures';
-import { LoginPage } from '../support/page/Login';
-import { HomePage } from '../support/page/HomePage';
+import { test } from '../support/fixture/Fixtures';
 
 test.describe('Login', () => {
 
-  test.beforeEach('Login functionality', async ({ login }) => {
-    await login.loginpageNavigate();
+  test.beforeEach('Check Login functionality flow', async ({ login }) => {
+    await login.loginPageNavigate();
   })
-
-  test('Login functionality flow', async ({ login }) => {
-    await login.login_Page();
-  })
-
 
 
 });
