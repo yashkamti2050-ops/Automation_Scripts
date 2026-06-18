@@ -8,13 +8,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      PROFILE_EMAIL: ${{ secrets.PROFILE_EMAIL }}
+      PROFILE_PHONE: ${{ secrets.PROFILE_PHONE }}
+      PROFILE_FIRST_NAME: ${{ secrets.PROFILE_FIRST_NAME }}
+      PROFILE_LAST_NAME: ${{ secrets.PROFILE_LAST_NAME }}
+      PROFILE_FULL_NAME: ${{ secrets.PROFILE_FULL_NAME }}
+      PROFILE_LANGUAGE: ${{ secrets.PROFILE_LANGUAGE }}
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
- 
+
       - run: npm ci
 
       - name: Install Browsers

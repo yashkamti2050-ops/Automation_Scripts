@@ -9,7 +9,7 @@ test.describe('paymentVerificationFlow', () => {
 
     });
 
-    test.skip('verifyPaymentStatus', async ({ orderManagementPage }) => {
+    test('verifyPaymentStatus', async ({ orderManagementPage }) => {
 
         await orderManagementPage.navigateToOrderPage();
         await orderManagementPage.clickOnOrderCard();

@@ -8,7 +8,7 @@ test.describe('Profile Page ', () => {
 
     });
 
-    test.skip('Updated profile page text field', async ({ profilePage }) => {
+    test('Updated profile page text field', async ({ profilePage }) => {
         await profilePage.openNavPanel();
         await profilePage.clickProfileTab();
         await profilePage.enterFirstName();
