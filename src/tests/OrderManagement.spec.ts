@@ -5,6 +5,7 @@ test.describe('paymentVerificationFlow', () => {
 
     test.beforeEach(async ({ login, }) => {
         await login.loginPageNavigate();
+         await login.homePageConfirmation();
 
 
     });

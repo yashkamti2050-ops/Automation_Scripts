@@ -34,10 +34,12 @@ export class LoginPage {
         await this.cashier.click();
         await this.page.getByRole('button', { name: 'Clan-AP Restaurant' }).click();
         await this.page.waitForLoadState('networkidle');
-        await expect(this.navPanel).toBeVisible();
+        await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
+    async homePageConfirmation() {
+        await expect(this.navPanel).toBeVisible({ timeout: 30000 });
 
-
+    }
 
 
 

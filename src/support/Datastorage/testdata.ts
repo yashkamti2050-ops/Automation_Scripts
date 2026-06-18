@@ -1,22 +1,22 @@
 export const testData = {
     ValidUser: {
-        Username: process.env.EMAIL!,
-        Password: process.env.PASSWORD!
+        Username: process.env.VALID_USERNAME!,
+        Password: process.env.VALID_PASSWORD!
 
     },
 
     ProfileData: {
         UserName: process.env.PROFILE_EMAIL!,
-        Phone_Num: process.env.Phone_Number!
+        Phone_Num: process.env.PROFILE_PHONE!
     },
 
     UserDetail: {
-        Name: process.env.User_Name!,
-        Mobile_Num: process.env.User_Phonenumber!
+        Name: process.env.PROFILE_FULL_NAME!,
+        Mobile_Num: process.env.PROFILE_PHONE!
     },
     ProfileName: {
-        FirstName: process.env.First_Name!,
-        LastName: process.env.Last_Name!
+        FirstName: process.env.PROFILE_FIRST_NAME!,
+        LastName: process.env.PROFILE_LAST_NAME!
     }
 
 

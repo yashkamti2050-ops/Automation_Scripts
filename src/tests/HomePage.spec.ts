@@ -6,6 +6,7 @@ test.describe('Payments Flow', () => {
 
     test.beforeEach('Login and navigate to home page', async ({ login }) => {
         await login.loginPageNavigate();
+        await login.homePageConfirmation();
     });
 
 

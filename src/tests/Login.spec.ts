@@ -4,6 +4,8 @@ test.describe('Login', () => {
 
   test.beforeEach('Check Login functionality flow', async ({ login }) => {
     await login.loginPageNavigate();
+     await login.homePageConfirmation();
+
   })
 
 

@@ -81,7 +81,7 @@ export class HomePage {
     }
 
     async createCashOrder() {
-        await this.page.waitForTimeout(12000);
+        await this.page.waitForTimeout(8000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         // await this.cashButton.click();
@@ -94,6 +94,7 @@ export class HomePage {
     }
 
     async createLaterOrder() {
+        await this.page.waitForTimeout(12000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         await expect(this.laterButton).toBeVisible();
@@ -102,7 +103,7 @@ export class HomePage {
     }
 
     async createVoucherOrder() {
-
+        await this.page.waitForTimeout(12000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
         await expect(this.voucherButton).toBeVisible();
