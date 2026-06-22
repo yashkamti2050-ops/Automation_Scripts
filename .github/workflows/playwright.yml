@@ -10,14 +10,14 @@ jobs:
     timeout-minutes: 60
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
-      VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
-      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      PROFILE_EMAIL: ${{ secrets.PROFILE_EMAIL }}
-      PROFILE_PHONE: ${{ secrets.PROFILE_PHONE }}
-      PROFILE_FIRST_NAME: ${{ secrets.PROFILE_FIRST_NAME }}
-      PROFILE_LAST_NAME: ${{ secrets.PROFILE_LAST_NAME }}
-      PROFILE_FULL_NAME: ${{ secrets.PROFILE_FULL_NAME }}
-      PROFILE_LANGUAGE: ${{ secrets.PROFILE_LANGUAGE }}
+      TEST_USER_USERNAME: ${{ secrets.TEST_USER_USERNAME }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      TEST_PROFILE_EMAIL: ${{ secrets.TEST_PROFILE_EMAIL }}
+      TEST_PROFILE_PHONE_NUMBER: ${{ secrets.TEST_PROFILE_PHONE_NUMBER }}
+      TEST_PROFILE_FIRST_NAME: ${{ secrets.TEST_PROFILE_FIRST_NAME }}
+      TEST_PROFILE_LAST_NAME: ${{ secrets.TEST_PROFILE_LAST_NAME }}
+      TEST_PROFILE_FULL_NAME: ${{ secrets.TEST_PROFILE_FULL_NAME }}
+      TEST_PROFILE_LANGUAGE: ${{ secrets.TEST_PROFILE_LANGUAGE }}
 
     steps:
       - uses: actions/checkout@v4

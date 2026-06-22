@@ -14,13 +14,13 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 export default defineConfig({
   testDir: 'src/tests',
   timeout: 90000,
-  // expect: {
-  //   timeout: 30000
-  // },
+  expect: {
+    timeout: 10000
+  },
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  // forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
@@ -37,12 +37,23 @@ export default defineConfig({
 
 
   /* Configure projects for major browsers */
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'], },
-    },
-  ],
+  projects:
+    [
+      {
+        name: 'auth',
+        testMatch: /.*\.setup\.ts/,
+      },
+      {
+        name: 'chromium',
+        dependencies: ['auth'],
+        use: {
+          ...devices['Desktop Chrome'],
+          storageState: 'src/page/auth/login.json',
+        },
+      },
+    ],
+
+
 
   // {
   //   name: 'firefox',

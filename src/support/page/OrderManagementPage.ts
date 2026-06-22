@@ -21,7 +21,7 @@ export class OrderManagementPage {
 
     constructor(private page: Page) {
 
-        this.page.setDefaultTimeout(10000);
+
         this.orderButton = this.page.getByTestId('cashier-home-orders-trigger');
         this.searchButton = this.page.getByTestId('orders-button');
         this.newOrderButton = this.page.getByTestId('new-orders-button');
@@ -66,22 +66,22 @@ export class OrderManagementPage {
 
     async checkPaymentStatus() {
         await expect(this.orderModel).toBeVisible();
-        // await this.orderModel.evaluate(el => el.scrollTop = el.scrollHeight);
-        // await expect(this.paymentBox).toBeVisible();
+        await this.orderModel.evaluate(el => el.scrollTop = el.scrollHeight);
+        await expect(this.paymentBox).toBeVisible();
 
-        // if (await this.paymentSettled.isVisible()) {
-        //     console.log("Payment Completed");
-        // }
+        if (await this.paymentSettled.isVisible()) {
+            console.log("Payment Completed");
+        }
 
-        // else if (await this.paymentUnsettled.isVisible()) {
+        else if (await this.paymentUnsettled.isVisible()) {
 
-        //     console.log("Payment Failed")
+            console.log("Payment Failed")
 
-        // }
+        }
 
-        // else {
-        //     throw new Error("Payment is still pending");
-        // }
+        else {
+            throw new Error("Payment is still pending");
+        }
     }
 
 

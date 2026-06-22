@@ -16,7 +16,7 @@ export class ProfilePage {
 
 
   constructor(private page: Page) {
-    this.page.setDefaultTimeout(10000);
+
     this.navPanel = this.page.getByTestId('nav-panel');
     this.profileButton = this.page.getByTestId('profile-setting-button');
     this.firstName = this.page.getByTestId('profile-first-name');
@@ -27,6 +27,7 @@ export class ProfilePage {
     this.mobileNumber = this.page.getByTestId('mobile-phone-change-btn');
     this.mobileInput = this.page.getByTestId('change-phone-input');
     this.langChange = this.page.getByTestId('language-dropdown');
+
 
   }
 
@@ -43,23 +44,23 @@ export class ProfilePage {
   }
   async enterFirstName() {
     await expect(this.firstName).toBeVisible();
-    await this.firstName.fill(testData.ProfileName.FirstName);
+    await this.firstName.fill(testData.profileData.email);
   }
   async enterLastName() {
     await expect(this.lastName).toBeVisible();
-    await this.lastName.fill(testData.ProfileName.LastName);
+    await this.lastName.fill(testData.profileName.lastName);
   }
   async changeEmailTextfield() {
     await expect(this.emailTextfield).toBeVisible();
     await this.emailTextfield.click();
-    await this.emailInput.fill(testData.ProfileData.UserName);
+    await this.emailInput.fill(testData.profileData.email);
     await this.cancelButton.click();
 
   }
   async changeMobileNumber() {
     await this.mobileNumber.click();
     await expect(this.mobileInput).toBeVisible();
-    await this.mobileInput.fill(testData.ProfileData.Phone_Num);
+    await this.mobileInput.fill(testData.profileData.phoneNumber);
     await this.cancelButton.click();
 
   }

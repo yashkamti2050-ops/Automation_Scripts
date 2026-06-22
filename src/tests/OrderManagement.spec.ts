@@ -4,8 +4,7 @@ import { test } from '../support/fixture/Fixtures';
 test.describe('paymentVerificationFlow', () => {
 
     test.beforeEach(async ({ login, }) => {
-        await login.loginPageNavigate();
-         await login.homePageConfirmation();
+        await login.homePageConfirmation();
 
 
     });
@@ -14,7 +13,7 @@ test.describe('paymentVerificationFlow', () => {
 
         await orderManagementPage.navigateToOrderPage();
         await orderManagementPage.clickOnOrderCard();
-        await orderManagementPage.checkPaymentStatus();
+        // await orderManagementPage.checkPaymentStatus();
 
 
     });

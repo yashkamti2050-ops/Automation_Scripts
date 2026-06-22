@@ -41,7 +41,7 @@ export class HomePage {
     crossButton: Locator;
 
     constructor(private page: Page) {
-        this.page.setDefaultTimeout(10000);
+
         this.navPanel = this.page.getByTestId('nav-panel');
         this.cashierPage = this.page.locator('user-name');
         this.takeAway = this.page.locator('takeaway-tab-button');
@@ -80,12 +80,14 @@ export class HomePage {
 
     }
 
-    async createCashOrder() {
-        await this.page.waitForTimeout(8000);
+    async addItemToCart() {
+        await this.page.waitForTimeout(5000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
-        // await this.cashButton.click();
-        await this.cashButton.click();
+    }
+
+    async createCashOrder() {
+        await this.addItemToCart();
         await expect(this.cashButton).toBeVisible();
         await this.cashButton.click();
         await this.placeOrder.click();
@@ -94,18 +96,14 @@ export class HomePage {
     }
 
     async createLaterOrder() {
-        await this.page.waitForTimeout(12000);
-        await expect(this.plusIcon).toBeVisible();
-        await this.plusIcon.click();
+        await this.addItemToCart();
         await expect(this.laterButton).toBeVisible();
         await this.laterButton.click();
         await this.placeOrder.click();
     }
 
     async createVoucherOrder() {
-        await this.page.waitForTimeout(12000);
-        await expect(this.plusIcon).toBeVisible();
-        await this.plusIcon.click();
+        await this.addItemToCart();
         await expect(this.voucherButton).toBeVisible();
         await this.voucherButton.click();
         await this.placeOrder.click();
@@ -118,10 +116,7 @@ export class HomePage {
     }
 
     async createCardOrder(): Promise<void> {
-        await expect(this.plusIcon).toBeVisible();
-        await this.plusIcon.click();
-        // await this.cashButton.click();
-        await this.cardButton.click();
+        await this.addItemToCart();
         await expect(this.cardButton).toBeVisible();
         await this.cardButton.click();
         await this.placeOrder.click();
@@ -141,8 +136,9 @@ export class HomePage {
                 break;
 
             case 'failed':
-                await this.page.waitForTimeout(10000);
-                await expect(this.orderDetailPop).toBeVisible();
+                await expect(this.orderDetailPop).toBeVisible({
+                    timeout: 10000
+                });
                 await this.crossButton.click();
                 await expect(this.orderDetailPop).not.toBeVisible();
                 console.log(' Payment failed — modal closed, moving on');

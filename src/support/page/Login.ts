@@ -10,7 +10,7 @@ export class LoginPage {
     navPanel: Locator
 
     constructor(private page: Page) {
-        this.page.setDefaultTimeout(10000);
+
         this.continueEmail = this.page.getByText('Continue with email');
         this.signinEmail = this.page.getByTestId('signin-email-field');
         this.continueButton = this.page.getByText('Continue');
@@ -24,10 +24,10 @@ export class LoginPage {
         await this.page.goto('/');
         await this.continueEmail.click();
         await expect(this.signinEmail).toBeVisible();
-        await this.signinEmail.fill(testData.ValidUser.Username)
+        await this.signinEmail.fill(testData.validUser.username);
         await this.continueButton.click();
         await expect(this.passwordField).toBeVisible();
-        await this.passwordField.fill(testData.ValidUser.Password);
+        await this.passwordField.fill(testData.validUser.password);
         await expect(this.loginButton).toBeVisible();
         await this.loginButton.click();
         // await this.page.waitForLoadState('networkidle');
@@ -37,6 +37,7 @@ export class LoginPage {
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
     async homePageConfirmation() {
+        await this.page.goto('/');
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
 
     }

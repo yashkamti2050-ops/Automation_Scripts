@@ -3,10 +3,7 @@ import { test } from '../support/fixture/Fixtures';
 
 test.describe('Profile Page ', () => {
     test.beforeEach(async ({ login }) => {
-        await login.loginPageNavigate();
         await login.homePageConfirmation();
-
-
 
     });
 

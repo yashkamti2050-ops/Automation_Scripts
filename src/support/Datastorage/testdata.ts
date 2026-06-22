@@ -1,24 +1,25 @@
 export const testData = {
-    ValidUser: {
-        Username: process.env.VALID_USERNAME!,
-        Password: process.env.VALID_PASSWORD!
-
+    validUser: {
+        username: process.env.TEST_USER_USERNAME!,
+        password: process.env.TEST_USER_PASSWORD!,
     },
 
-    ProfileData: {
-        UserName: process.env.PROFILE_EMAIL!,
-        Phone_Num: process.env.PROFILE_PHONE!
+    profileData: {
+        email: process.env.TEST_PROFILE_EMAIL!,
+        phoneNumber: process.env.TEST_PROFILE_PHONE_NUMBER!,
     },
 
-    UserDetail: {
-        Name: process.env.PROFILE_FULL_NAME!,
-        Mobile_Num: process.env.PROFILE_PHONE!
+    userDetail: {
+        fullName: process.env.TEST_PROFILE_FULL_NAME!,
+        phoneNumber: process.env.TEST_PROFILE_PHONE_NUMBER!,
     },
-    ProfileName: {
-        FirstName: process.env.PROFILE_FIRST_NAME!,
-        LastName: process.env.PROFILE_LAST_NAME!
-    }
 
+    profileName: {
+        firstName: process.env.TEST_PROFILE_FIRST_NAME!,
+        lastName: process.env.TEST_PROFILE_LAST_NAME!,
+    },
 
-
+    profileSettings: {
+        language: process.env.TEST_PROFILE_LANGUAGE!,
+    },
 };
