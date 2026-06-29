@@ -20,8 +20,10 @@ export class LoginPage {
         this.navPanel = this.page.getByTestId('nav-panel');
     }
 
-    async loginPageNavigate() {
+    async navigateThroughLoginPage() {
         await this.page.goto('/');
+        await this.page.waitForLoadState('domcontentloaded');
+        await expect(this.continueEmail).toBeVisible({ timeout: 10000 });
         await this.continueEmail.click();
         await expect(this.signinEmail).toBeVisible();
         await this.signinEmail.fill(testData.validUser.username);
@@ -30,14 +32,16 @@ export class LoginPage {
         await this.passwordField.fill(testData.validUser.password);
         await expect(this.loginButton).toBeVisible();
         await this.loginButton.click();
-        // await this.page.waitForLoadState('networkidle');
-        await this.cashier.click();
         await this.page.getByRole('button', { name: 'Clan-AP Restaurant' }).click();
         await this.page.waitForLoadState('networkidle');
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
-    async homePageConfirmation() {
+    async confirmOnHomePage() {
         await this.page.goto('/');
+        const pageURL = this.page.url();
+        if (pageURL == testData.loginURL.url) {
+
+        }
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
 
     }

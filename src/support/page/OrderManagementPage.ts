@@ -16,6 +16,10 @@ export class OrderManagementPage {
     paymentBox: Locator;
     receiptButton: Locator;
     orderModel: Locator;
+    searchForOrder: Locator;
+    unspecified: Locator;
+    otherAmount: Locator;
+    actionDropdownOptions: Locator;
 
 
 
@@ -37,34 +41,45 @@ export class OrderManagementPage {
         this.paymentBox = this.page.getByTestId('payment-box');
         this.receiptButton = this.page.getByTestId('receipt-button');
         this.orderModel = this.page.getByTestId('order-details-modal');
+        this.searchForOrder = this.page.locator('.search-form-title', { hasText: 'Search for order' });
+        this.otherAmount = this.page.locator('other-amount-btn');
+        this.unspecified = this.page.locator('unspecified-open-btn');
+        this.actionDropdownOptions = this.page.locator('.actions-menu');
 
 
     }
 
 
-    async navigateToOrderPage() {
+    async verifyNavigationToOrderPage() {
         await this.orderButton.click();
+        await expect(this.newOrderButton).toBeVisible();
+
+
     }
 
-    async clickActionButton() {
+    async verifyActionButtonclick() {
         await expect(this.actionButton).toBeVisible();
         await this.actionButton.click();
+        await expect(this.actionDropdownOptions).toBeVisible();
+
     }
 
-    async clickOnSearchButton() {
+    async verifySearchForOrderPageNavigation() {
         await expect(this.searchButton).toBeVisible();
         await this.searchButton.click();
+        await expect(this.searchForOrder).toBeVisible();
         await this.backButton.click();
         await expect(this.newOrderButton).toBeVisible();
         await this.newOrderButton.click();
-        await expect(this.page).toHaveURL('/');
+        await expect(this.unspecified).toBeVisible();
     }
-    async clickOnOrderCard() {
+    async verifyOrderDetailPopup() {
         await expect(this.orderCard).toBeVisible();
         await this.orderCard.click();
+        await expect(this.orderModel).toBeVisible();
     }
 
-    async checkPaymentStatus() {
+    async verifyPaymentStatus() {
         await expect(this.orderModel).toBeVisible();
         await this.orderModel.evaluate(el => el.scrollTop = el.scrollHeight);
         await expect(this.paymentBox).toBeVisible();

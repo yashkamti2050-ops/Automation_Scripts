@@ -1,20 +1,20 @@
 import { test } from '../support/fixture/Fixtures';
 
 
-test.describe('Profile Page ', () => {
+test.describe('Profile Page  ', () => {
     test.beforeEach(async ({ login }) => {
-        await login.homePageConfirmation();
+        await login.confirmOnHomePage();
 
     });
 
-    test('Updated profile page text field', async ({ profilePage }) => {
-        await profilePage.openNavPanel();
-        await profilePage.clickProfileTab();
-        await profilePage.enterFirstName();
-        await profilePage.enterLastName();
-        await profilePage.changeEmailTextfield();
-        await profilePage.changeMobileNumber();
-        await profilePage.changeLanguage();
+    test(' Verify Profile Page Text Fields', async ({ profilePage }) => {
+        await profilePage.verifyNavPanelClick();
+        await profilePage.verifyProfileTabClick();
+        await profilePage.verifyFirstNameEntered();
+        await profilePage.verifyLastNameEntered();
+        await profilePage.verifyEmailModified();
+        await profilePage.verifyMobileNumberModified();
+        await profilePage.verifyLanguageModified();
     });
 });
 

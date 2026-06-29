@@ -1,3 +1,5 @@
+import { url } from "node:inspector";
+
 export const testData = {
     validUser: {
         username: process.env.TEST_USER_USERNAME!,
@@ -22,4 +24,8 @@ export const testData = {
     profileSettings: {
         language: process.env.TEST_PROFILE_LANGUAGE!,
     },
+
+    loginURL: {
+        url: process.env.BASE_URL!,
+    }
 };

@@ -3,6 +3,8 @@ import { LoginPage } from '../page/Login';
 import { ProfilePage } from '../page/ProfilePage';
 import { OrderManagementPage } from '../page/OrderManagementPage';
 import { HomePage } from '../page/HomePage';
+// import { ensureAuthenticated } from '../helper/authHelper' // ← Fixed path
+
 
 type MyFixtures = {
     login: LoginPage;
@@ -15,6 +17,7 @@ export const test = base.extend<MyFixtures>({
 
     login: async ({ page }, use) => {
         const login = new LoginPage(page);
+        // await ensureAuthenticated(page, login);
         await use(login);
     },
 

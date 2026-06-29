@@ -39,6 +39,13 @@ export class HomePage {
     cancelButton: Locator;
     noItemsText: Locator;
     crossButton: Locator;
+    menuItem: Locator;
+    collectAmountPopUp: Locator;
+    paymentRegistered: Locator;
+    orderPlaced: Locator;
+    discountAmountText: Locator;
+    yesButton: Locator;
+    voucherConfirmation: Locator;
 
     constructor(private page: Page) {
 
@@ -77,51 +84,101 @@ export class HomePage {
         this.noItemsText = this.page.locator('.cashier-rail-empty-state-text', { hasText: 'No items' });
         this.crossButton = this.page.getByTestId('order-details-close-btn');
         this.orderButton = this.page.getByTestId('cashier-home-orders-trigger');
-
+        this.menuItem = this.page.locator('.cashier-rail-populated-cart-item-desc');
+        this.collectAmountPopUp = this.page.getByTestId('collect-amount-header');
+        this.paymentRegistered = this.page.locator('.swal2-title', { hasText: 'Payment registered' });
+        this.orderPlaced = this.page.locator('.swal2-title', { hasText: 'order placed!' });
+        this.discountAmountText = this.page.locator('.discount-amount')
+        this.yesButton = this.page.getByTestId('yes-btn');
+        this.voucherConfirmation = this.page.getByRole('dialog')
     }
 
     async addItemToCart() {
         await this.page.waitForTimeout(5000);
         await expect(this.plusIcon).toBeVisible();
         await this.plusIcon.click();
-    }
+        await expect(this.menuItem).toBeVisible();
 
-    async createCashOrder() {
-        await this.addItemToCart();
-        await expect(this.cashButton).toBeVisible();
-        await this.cashButton.click();
-        await this.placeOrder.click();
+    }
+    async clickExactAmount() {
         await expect(this.exactAmount).toBeVisible();
         await this.exactAmount.click();
     }
 
-    async createLaterOrder() {
-        await this.addItemToCart();
+    async selectCashPay() {
+        await expect(this.cashButton).toBeVisible();
+        await this.cashButton.click();
+
+    }
+    async selectVoucherPay() {
+        await expect(this.voucherButton).toBeVisible();
+        await this.voucherButton.click();
+    }
+
+    async selectPayLaterPay() {
         await expect(this.laterButton).toBeVisible();
         await this.laterButton.click();
+
+    }
+
+    async selectCardPay() {
+        await expect(this.cardButton).toBeVisible();
+        await this.cardButton.click();
+    }
+
+    async clickPlaceOrderButton() {
+        await expect(this.placeOrder).toBeVisible();
         await this.placeOrder.click();
     }
 
-    async createVoucherOrder() {
+    async addDiscountToOrder() {
+        await expect(this.discountCode).toBeVisible();
+        await this.discountButton.click();
+        await expect(this.totalBill).toBeVisible();
+        await this.totalBill.click();
+        await expect(this.discountAmountText).toBeVisible();
+    }
+
+
+    async cashTypeOrderCreation() {
+        await this.addItemToCart();
+        await this.selectCashPay();
+        await this.clickPlaceOrderButton();
+        await expect(this.collectAmountPopUp).toBeVisible();
+        await this.clickExactAmount()
+        await expect(this.paymentRegistered).toBeVisible();
+
+    }
+
+    async PayLaterTypeOrderCreation() {
+        await this.addItemToCart();
+        await this.selectPayLaterPay();
+        await this.placeOrder.click();
+        await expect(this.orderPlaced).toBeVisible();
+    }
+
+    async VoucherTypeOrderCreation() {
         await this.addItemToCart();
         await expect(this.voucherButton).toBeVisible();
-        await this.voucherButton.click();
-        await this.placeOrder.click();
+        await this.selectVoucherPay();
+        await this.clickPlaceOrderButton();
         await expect(this.voucherPage).toBeVisible();
         for (const digit of this.voucher) {
             await this.keyPadButton.getByText(digit, { exact: true }).click();
         }
         await expect(this.continueButton).toBeVisible();
         await this.continueButton.click();
+        await expect(this.voucherConfirmation).toBeVisible();
+        await this.yesButton.click();
+        await expect(this.paymentRegistered).toBeVisible();
+
     }
 
-    async createCardOrder(): Promise<void> {
+    async CardTypeOrderCreation(): Promise<void> {
         await this.addItemToCart();
         await expect(this.cardButton).toBeVisible();
-        await this.cardButton.click();
-        await this.placeOrder.click();
-        await expect(this.exactAmount).toBeVisible();
-        await this.exactAmount.click();
+        await this.selectCardPay();
+        await this.clickExactAmount()
 
         const result = await this.waitForPaymentCompletion();
 
@@ -217,16 +274,13 @@ export class HomePage {
     }
 
 
-    async addDiscount() {
-        await expect(this.discountCode).toBeVisible();
-        await this.discountButton.click();
-        await expect(this.totalBill).toBeVisible();
-        await this.totalBill.click();
 
-
-    }
 
 }
+
+
+
+
 
 
 

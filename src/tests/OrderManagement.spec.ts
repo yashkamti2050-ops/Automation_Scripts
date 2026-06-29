@@ -1,19 +1,19 @@
 import { test } from '../support/fixture/Fixtures';
 
 
-test.describe('paymentVerificationFlow', () => {
+test.describe('Order Management Page Functionality Test', () => {
 
     test.beforeEach(async ({ login, }) => {
-        await login.homePageConfirmation();
+        await login.confirmOnHomePage();
 
 
     });
 
-    test('verifyPaymentStatus', async ({ orderManagementPage }) => {
+    test('Verify the Payment status of order cards', async ({ orderManagementPage }) => {
 
-        await orderManagementPage.navigateToOrderPage();
-        await orderManagementPage.clickOnOrderCard();
-        // await orderManagementPage.checkPaymentStatus();
+        await orderManagementPage.verifyNavigationToOrderPage();
+        await orderManagementPage.verifyOrderDetailPopup();
+        // await orderManagementPage.paymentStatusCheck();
 
 
     });

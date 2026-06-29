@@ -27,7 +27,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html'], ['list']],
+  reporter: [['html'], ['list'], ['allure-playwright']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: process.env.BASE_URL,
@@ -45,7 +45,7 @@ export default defineConfig({
       },
       {
         name: 'chromium',
-        dependencies: ['auth'],
+        // dependencies: ['auth'],
         use: {
           ...devices['Desktop Chrome'],
           storageState: 'src/page/auth/login.json',

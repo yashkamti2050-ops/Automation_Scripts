@@ -1,33 +1,37 @@
 import { test } from '../support/fixture/Fixtures';
+import { HomePage } from '../support/page/HomePage';
 
 
-test.describe('Payments Flow', () => {
+test.describe('Home Page Payment Verification', () => {
 
 
     test.beforeEach('Login and navigate to home page', async ({ login }) => {
-        await login.homePageConfirmation();
+        await login.confirmOnHomePage();
     });
 
 
-    test('Check Cash Payment flow', async ({ homePage }) => {
-        await homePage.createCashOrder();
+
+    test('Verify  Cash Payment flow', async ({ homePage }) => {
+        await homePage.cashTypeOrderCreation();
     });
 
-    test('Check Pay later Payment Flow', async ({ homePage }) => {
-
-        await homePage.createLaterOrder();
+    test('Verify Pay later Payment Flow', async ({ homePage }) => {
+        await homePage.PayLaterTypeOrderCreation();
     });
 
-    test('Check Voucher payment flow', async ({ homePage }) => {
-        await homePage.createVoucherOrder();
-    });
-
-
-    test.skip('Check Card payment flow', async ({ homePage }) => {
-        await homePage.createCardOrder();
+    test.only('Verify Voucher payment flow', async ({ homePage }) => {
+        await homePage.VoucherTypeOrderCreation();
     });
 
 
-})
+    test.skip('Verify Card payment flow', async ({ homePage }) => {
+        await homePage.CardTypeOrderCreation();
+    });
 
-//.domcontentloaded 
+    test.skip('Verify Discount is added to order cart', async ({ homePage }) => {
+        await homePage.cashTypeOrderCreation();
+        await homePage.addDiscountToOrder()
+    });
+
+});
+
