@@ -18,6 +18,7 @@ jobs:
       TEST_PROFILE_LAST_NAME: ${{ secrets.TEST_PROFILE_LAST_NAME }}
       TEST_PROFILE_FULL_NAME: ${{ secrets.TEST_PROFILE_FULL_NAME }}
       TEST_PROFILE_LANGUAGE: ${{ secrets.TEST_PROFILE_LANGUAGE }}
+      TEST_VOUCHER_CODE: ${{ secrets.TEST_VOUCHER_CODE }}
 
     steps:
       - uses: actions/checkout@v4
