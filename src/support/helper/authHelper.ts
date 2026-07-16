@@ -1,30 +1,33 @@
-import fs from 'fs';
 import { LoginPage } from '../page/Login';
 import { Page } from "@playwright/test";
-export async function ensureAuthenticated(page: Page, loginPage: LoginPage) {
-    await page.goto('/');
 
-    const isLoggedIn = await page
-        .locator('[data-testid="nav-panel"]')
-        .isVisible()
+export async function isSessionExpired(page: Page) {
+    return page.url().includes("/login");
+}
+
+export async function ensureAuthenticated(page: Page) {
+
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState('domcontentloaded');
+    const loggedIn = await page
+        .getByTestId("nav-panel")
+        .isVisible({ timeout: 80000 })
         .catch(() => false);
 
-
-    if (!isLoggedIn) {
-        console.log('Session expired - re-authenticating...');
-
-        // Delete old expired file (force: true = silent delete)
-        fs.rmSync('src/page/auth/login.json', { force: true });
-
-        // Actually log in again
-        await loginPage.navigateThroughLoginPage();
-        await loginPage.confirmOnHomePage();
-
-        // Save the fresh state 
-        await page.context().storageState({
-            path: 'src/page/auth/login.json',
-        });
-
-        console.log('Re-authentication complete - new session saved')
+    if (loggedIn) {
+        console.log("Already logged in.");
+        return;
     }
+
+    console.log("Session expired. Logging in again...");
+
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigateThroughLoginPage();
+
+    await page.context().storageState({
+        path: "src/page/auth/login.json"
+    });
 }
+  

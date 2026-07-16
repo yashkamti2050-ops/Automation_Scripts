@@ -47,9 +47,10 @@ export class ProfilePage {
     await expect(this.menuTab).toBeVisible();
   }
   async verifyProfileTabClick() {
-    await expect(this.profileButton.last()).toBeVisible();
-    await this.profileButton.last().click();
-    await expect(this.settingTab).toBeVisible();
+
+    const profileTab = this.profileButton.last();
+    await expect(profileTab).toBeVisible();
+    await profileTab.click();
   }
   async verifyFirstNameEntered() {
     await expect(this.firstName).toBeVisible();

@@ -2,9 +2,10 @@ import { test } from '../support/fixture/Fixtures';
 
 
 test.describe('Profile Page  ', () => {
-    test.beforeEach(async ({ login }) => {
-        await login.confirmOnHomePage();
 
+
+    test.beforeEach('Login and navigate to home page', async ({ login }) => {
+        await login.confirmOnHomePage();
     });
 
     test(' Verify Profile Page Text Fields', async ({ profilePage }) => {

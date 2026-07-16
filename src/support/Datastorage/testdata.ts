@@ -1,5 +1,3 @@
-import { url } from "node:inspector";
-
 export const testData = {
     validUser: {
         username: process.env.TEST_USER_USERNAME!,
@@ -27,5 +25,10 @@ export const testData = {
 
     loginURL: {
         url: process.env.BASE_URL!,
+    }, 
+    
+    voucher: {
+        code: process.env.TEST_VOUCHER_CODE!,
     }
+
 };

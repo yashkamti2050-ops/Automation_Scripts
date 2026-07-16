@@ -1,13 +1,15 @@
 import { test as base } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { LoginPage } from '../page/Login';
 import { ProfilePage } from '../page/ProfilePage';
 import { OrderManagementPage } from '../page/OrderManagementPage';
 import { HomePage } from '../page/HomePage';
-// import { ensureAuthenticated } from '../helper/authHelper' // ← Fixed path
+import { ensureAuthenticated } from '../helper/authHelper' // 
 
 
 type MyFixtures = {
     login: LoginPage;
+    authenticatedPage: Page;
     orderManagementPage: OrderManagementPage;
     profilePage: ProfilePage;
     homePage: HomePage;
@@ -17,26 +19,29 @@ export const test = base.extend<MyFixtures>({
 
     login: async ({ page }, use) => {
         const login = new LoginPage(page);
-        // await ensureAuthenticated(page, login);
         await use(login);
     },
 
-    orderManagementPage: async ({ page }, use) => {
+    // This fixture does nothing but guarantee you're logged in
+    authenticatedPage: async ({ page }, use) => {
+        await ensureAuthenticated(page);
+        await use(page);
+
+    },
+
+    orderManagementPage: async ({ page,  }, use) => {
         const orderManagementPage = new OrderManagementPage(page);
         await use(orderManagementPage);
     },
 
-    profilePage: async ({ page }, use) => {
+    profilePage: async ({ page,  }, use) => {
         const profilePage = new ProfilePage(page);
         await use(profilePage);
     },
 
     homePage: async ({ page }, use) => {
-        const Home_Page = new HomePage(page);
-        await use(Home_Page);
+        const homePage = new HomePage(page);
+        await use(homePage);
     }
 
-
 });
-
-export { expect } from '@playwright/test';

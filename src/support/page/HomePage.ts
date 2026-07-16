@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-// import { testData } from "../Datastorage/testdata";
+import { testData } from "../Datastorage/testdata";
 export type PaymentResult = 'success' | 'failed' | 'timeout';
 export class HomePage {
 
@@ -33,7 +33,7 @@ export class HomePage {
     deleteIcon: Locator;
     voucherPage: Locator;
     keyPadButton: Locator;
-    voucher = '131509';
+    // voucher = '131509';
     continueButton: Locator;
     orderDetailPop: Locator;
     cancelButton: Locator;
@@ -54,7 +54,7 @@ export class HomePage {
         this.takeAway = this.page.locator('takeaway-tab-button');
         this.eatIn = this.page.locator('eatin-tab-button');
         this.delivery = this.page.locator('delivery-tab-button');
-        this.plusIcon = this.page.getByTestId('increase-quantity-btn').last();
+        this.plusIcon = this.page.getByTestId('increase-quantity-btn').first();
         this.minusIcon = this.page.locator('decrease-quantity-btn');
         this.cardButton = this.page.getByTestId('payment-btn-card');
         this.cashButton = this.page.getByTestId('payment-btn-cash');
@@ -94,8 +94,7 @@ export class HomePage {
     }
 
     async addItemToCart() {
-        await this.page.waitForTimeout(5000);
-        await expect(this.plusIcon).toBeVisible();
+        await this.plusIcon.waitFor({ state: 'visible', timeout: 8000 });
         await this.plusIcon.click();
         await expect(this.menuItem).toBeVisible();
 
@@ -107,7 +106,7 @@ export class HomePage {
 
     async selectCashPay() {
         await expect(this.cashButton).toBeVisible();
-        await this.cashButton.click();
+        // await this.cashButton.click();
 
     }
     async selectVoucherPay() {
@@ -163,7 +162,7 @@ export class HomePage {
         await this.selectVoucherPay();
         await this.clickPlaceOrderButton();
         await expect(this.voucherPage).toBeVisible();
-        for (const digit of this.voucher) {
+        for (const digit of testData.voucher.code) {
             await this.keyPadButton.getByText(digit, { exact: true }).click();
         }
         await expect(this.continueButton).toBeVisible();
@@ -171,7 +170,6 @@ export class HomePage {
         await expect(this.voucherConfirmation).toBeVisible();
         await this.yesButton.click();
         await expect(this.paymentRegistered).toBeVisible();
-
     }
 
     async CardTypeOrderCreation(): Promise<void> {
@@ -185,8 +183,8 @@ export class HomePage {
         switch (result) {
 
             case 'success':
-                await this.page.waitForTimeout(5000);
-                await expect(this.noItemsText).toBeVisible();
+                await this.noItemsText.waitFor({ state: 'visible', timeout: 5000 });
+                // TODO: Replace with assertion once payment unsettled UI is finalised
                 console.log(' Card order complete — home screen confirmed');
                 await expect(this.orderButton).toBeVisible();
 
@@ -198,6 +196,7 @@ export class HomePage {
                 });
                 await this.crossButton.click();
                 await expect(this.orderDetailPop).not.toBeVisible();
+                // TODO: Replace with assertion once payment settled UI is finalised
                 console.log(' Payment failed — modal closed, moving on');
                 await expect(this.orderButton).toBeVisible();
 
@@ -271,6 +270,10 @@ export class HomePage {
 
         return 'timeout';
 
+    }
+
+    async verifyHomePageNavigation() {
+        await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
 
 

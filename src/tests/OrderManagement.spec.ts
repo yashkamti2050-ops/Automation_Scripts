@@ -13,9 +13,6 @@ test.describe('Order Management Page Functionality Test', () => {
 
         await orderManagementPage.verifyNavigationToOrderPage();
         await orderManagementPage.verifyOrderDetailPopup();
-        // await orderManagementPage.paymentStatusCheck();
-
-
     });
 
 })

@@ -1,6 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { testData } from "../Datastorage/testdata";
 export class LoginPage {
+
     continueEmail: Locator
     signinEmail: Locator
     continueButton: Locator
@@ -8,6 +9,8 @@ export class LoginPage {
     loginButton: Locator
     cashier: Locator
     navPanel: Locator
+    restaurantName: Locator
+
 
     constructor(private page: Page) {
 
@@ -18,11 +21,14 @@ export class LoginPage {
         this.loginButton = this.page.getByTestId('login-button');
         this.cashier = this.page.getByText('Cashier');
         this.navPanel = this.page.getByTestId('nav-panel');
+        this.restaurantName = this.page.getByRole('button', { name: 'Clan-AP Restaurant' });
+
     }
 
     async navigateThroughLoginPage() {
         await this.page.goto('/');
         await this.page.waitForLoadState('domcontentloaded');
+         await this.page.waitForLoadState('networkidle');
         await expect(this.continueEmail).toBeVisible({ timeout: 10000 });
         await this.continueEmail.click();
         await expect(this.signinEmail).toBeVisible();
@@ -32,19 +38,17 @@ export class LoginPage {
         await this.passwordField.fill(testData.validUser.password);
         await expect(this.loginButton).toBeVisible();
         await this.loginButton.click();
-        await this.page.getByRole('button', { name: 'Clan-AP Restaurant' }).click();
-        await this.page.waitForLoadState('networkidle');
+        await expect(this.restaurantName).toBeVisible();
+        await this.restaurantName.click();
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
     async confirmOnHomePage() {
         await this.page.goto('/');
-        const pageURL = this.page.url();
-        if (pageURL == testData.loginURL.url) {
-
-        }
-        await expect(this.navPanel).toBeVisible({ timeout: 30000 });
-
+        await expect(this.navPanel).toBeVisible({
+            timeout: 30000
+        });
     }
+
 
 
 

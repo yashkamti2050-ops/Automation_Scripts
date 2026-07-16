@@ -1,5 +1,5 @@
 import { test } from '../support/fixture/Fixtures';
-import { HomePage } from '../support/page/HomePage';
+
 
 
 test.describe('Home Page Payment Verification', () => {
@@ -9,9 +9,7 @@ test.describe('Home Page Payment Verification', () => {
         await login.confirmOnHomePage();
     });
 
-
-
-    test('Verify  Cash Payment flow', async ({ homePage }) => {
+    test('Verify Cash Payment flow', async ({  homePage }) => {
         await homePage.cashTypeOrderCreation();
     });
 
@@ -19,7 +17,7 @@ test.describe('Home Page Payment Verification', () => {
         await homePage.PayLaterTypeOrderCreation();
     });
 
-    test.only('Verify Voucher payment flow', async ({ homePage }) => {
+    test('Verify Voucher payment flow', async ({ homePage }) => {
         await homePage.VoucherTypeOrderCreation();
     });
 
