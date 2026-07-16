@@ -34,7 +34,7 @@ export class ProfilePage {
     this.langChange = this.page.getByTestId('language-dropdown');
     this.settingTab = this.page.getByTestId('settings-tab-desktop');
     this.saveButton = this.page.getByTestId('profile-save-btn');
-    this.profileUpdated = this.page.locator('.swal2-title', { hasText: 'The profile has been saved' });
+    this.profileUpdated = this.page.locator('.swal2-title', { hasText: 'Profile saved successfully' });
 
 
   }

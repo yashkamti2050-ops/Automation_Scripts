@@ -57,10 +57,12 @@ export class OrderManagementPage {
         await expect(this.actionDropdownOptions).toBeVisible();
     }
     async verifyOrderDetailPopup() {
+        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('networkidle');
         await expect(this.orderCard).toBeVisible();
         await this.orderCard.click();
         await expect(this.orderModel).toBeVisible();
-        
+
     }
 
     async verifyPaymentCard() {
@@ -70,7 +72,7 @@ export class OrderManagementPage {
 
     async verifyPaymentStatus() {
         await expect(this.paymentStatus).toBeVisible();
-        
+
     }
 
 
