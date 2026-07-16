@@ -28,7 +28,7 @@ export class LoginPage {
     async navigateThroughLoginPage() {
         await this.page.goto('/');
         await this.page.waitForLoadState('domcontentloaded');
-         await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('networkidle');
         await expect(this.continueEmail).toBeVisible({ timeout: 10000 });
         await this.continueEmail.click();
         await expect(this.signinEmail).toBeVisible();
