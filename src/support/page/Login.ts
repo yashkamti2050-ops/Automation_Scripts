@@ -14,9 +14,9 @@ export class LoginPage {
 
     constructor(private page: Page) {
 
-        this.continueEmail = this.page.getByText('Continue with email');
+        this.continueEmail = this.page.getByRole('button', { name: 'Continue with email' });
         this.signinEmail = this.page.getByTestId('signin-email-field');
-        this.continueButton = this.page.getByText('Continue');
+        this.continueButton = this.page.getByRole('button', { name: 'Continue' });
         this.passwordField = this.page.getByTestId('password');
         this.loginButton = this.page.getByTestId('login-button');
         this.cashier = this.page.getByText('Cashier');

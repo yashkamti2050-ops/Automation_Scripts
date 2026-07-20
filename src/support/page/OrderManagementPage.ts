@@ -2,9 +2,9 @@ import { Locator, Page, expect } from '@playwright/test';
 
 export class OrderManagementPage {
 
-    orderButton: Locator
-    searchButton: Locator
-    newOrderButton: Locator
+    orderButton: Locator;
+    searchButton: Locator;
+    newOrderButton: Locator;
     actionButton: Locator;
     backButton: Locator;
     orderCard: Locator;
@@ -40,8 +40,8 @@ export class OrderManagementPage {
         this.receiptButton = this.page.getByTestId('receipt-button');
         this.orderModel = this.page.getByTestId('order-details-modal');
         this.searchForOrder = this.page.locator('.search-form-title', { hasText: 'Search for order' });
-        this.otherAmount = this.page.locator('other-amount-btn');
-        this.unspecified = this.page.locator('unspecified-open-btn');
+        this.otherAmount = this.page.getByTestId('other-amount-btn');
+        this.unspecified = this.page.getByTestId('unspecified-open-btn');
         this.actionDropdownOptions = this.page.locator('.actions-menu');
         this.paymentStatus = this.page.getByTestId('status-of-payment');
     }
@@ -72,6 +72,7 @@ export class OrderManagementPage {
 
     async verifyPaymentStatus() {
         await expect(this.paymentStatus).toBeVisible();
+        
 
     }
 

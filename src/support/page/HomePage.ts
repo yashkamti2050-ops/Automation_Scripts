@@ -33,7 +33,6 @@ export class HomePage {
     deleteIcon: Locator;
     voucherPage: Locator;
     keyPadButton: Locator;
-    // voucher = '131509';
     continueButton: Locator;
     orderDetailPop: Locator;
     cancelButton: Locator;
@@ -62,20 +61,20 @@ export class HomePage {
         this.moreButton = this.page.locator('payment-btn-more');
         this.mobilePay = this.page.getByRole('button', { name: 'MobilePay' });
         this.voucherButton = this.page.getByRole('button', { name: 'Voucher' });
-        this.discountButton = this.page.locator('discount-button');
-        this.totalBill = this.page.locator('total-bill-btn');
-        this.selectedItem = this.page.locator('selected-items-btn');
-        this.discountCode = this.page.locator('selected-items-btn');
-        this.notesButton = this.page.locator('instructions-btn');
-        this.clearButton = this.page.locator('clear-cart-btn');
+        this.discountButton = this.page.getByTestId('discount-button');
+        this.totalBill = this.page.getByTestId('total-bill-btn');
+        this.selectedItem = this.page.getByTestId('selected-items-btn');
+        this.discountCode = this.page.getByTestId('discount-code-btn');
+        this.notesButton = this.page.getByTestId('instructions-btn');
+        this.clearButton = this.page.getByTestId('clear-cart-btn');
         this.exactAmount = this.page.getByTestId('exact-amount-btn');
-        this.otherAmount = this.page.locator('other-amount-btn');
-        this.unspecified = this.page.locator('unspecified-open-btn');
+        this.otherAmount = this.page.getByTestId('other-amount-btn');
+        this.unspecified = this.page.getByTestId('unspecified-open-btn');
         this.placeOrder = this.page.getByTestId('place-order');
-        this.cashDropDown = this.page.locator('cash-dropdown-trigger');
-        this.moneyInOut = this.page.locator('cash-in-out-option');
-        this.backButton = this.page.locator('amount-keypad-back-btn');
-        this.deleteIcon = this.page.locator('remove-item-btn');
+        this.cashDropDown = this.page.getByTestId('cash-dropdown-trigger');
+        this.moneyInOut = this.page.getByTestId('cash-in-out-option');
+        this.backButton = this.page.getByTestId('amount-keypad-back-btn');
+        this.deleteIcon = this.page.getByTestId('remove-item-btn');
         this.voucherPage = this.page.locator('.keypad-container.keypad-container--fixed');
         this.keyPadButton = this.page.locator('.keypad-btn');
         this.continueButton = this.page.getByRole('button', { name: 'Continue' });
@@ -88,9 +87,9 @@ export class HomePage {
         this.collectAmountPopUp = this.page.getByTestId('collect-amount-header');
         this.paymentRegistered = this.page.locator('.swal2-title', { hasText: 'Payment registered' });
         this.orderPlaced = this.page.locator('.swal2-title', { hasText: 'order placed!' });
-        this.discountAmountText = this.page.locator('.discount-amount')
+        this.discountAmountText = this.page.locator('.discount-amount');
         this.yesButton = this.page.getByTestId('yes-btn');
-        this.voucherConfirmation = this.page.getByRole('dialog')
+        this.voucherConfirmation = this.page.getByRole('dialog');
     }
 
     async addItemToCart() {

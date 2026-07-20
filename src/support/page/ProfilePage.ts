@@ -2,16 +2,16 @@ import { Locator, Page, expect } from '@playwright/test';
 import { testData } from '../Datastorage/testdata';
 export class ProfilePage {
 
-  navPanel: Locator
-  profileButton: Locator
-  firstName: Locator
-  lastName: Locator
-  emailTextfield: Locator
-  emailInput: Locator
-  cancelButton: Locator
-  mobileNumber: Locator
-  mobileInput: Locator
-  langChange: Locator
+  navPanel: Locator;
+  profileButton: Locator;
+  firstName: Locator;
+  lastName: Locator;
+  emailTextfield: Locator;
+  emailInput: Locator;
+  cancelButton: Locator;
+  mobileNumber: Locator;
+  mobileInput: Locator;
+  langChange: Locator;
   settingTab: Locator;
   saveButton: Locator;
   profileUpdated: Locator;
