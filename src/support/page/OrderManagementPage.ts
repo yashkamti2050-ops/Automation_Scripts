@@ -73,7 +73,6 @@ export class OrderManagementPage {
     async verifyPaymentStatus() {
         await expect(this.paymentStatus).toBeVisible();
         
-
     }
 
 
