@@ -16,6 +16,8 @@ export class ProfilePage {
   saveButton: Locator;
   profileUpdated: Locator;
   menuTab: Locator;
+  englishOption: Locator;
+
 
 
 
@@ -35,7 +37,7 @@ export class ProfilePage {
     this.settingTab = this.page.getByTestId('settings-tab-desktop');
     this.saveButton = this.page.getByTestId('profile-save-btn');
     this.profileUpdated = this.page.locator('.swal2-title', { hasText: 'Profile saved successfully' });
-
+    this.englishOption = this.page.getByRole('option', { name: "English" })
 
   }
 
@@ -80,7 +82,7 @@ export class ProfilePage {
   async verifyLanguageModified() {
     await expect(this.langChange).toBeVisible();
     await this.langChange.click();
-    await this.page.getByRole('option', { name: "English" }).click();
+    await this.englishOption.click();
     await this.saveButton.click();
     await expect(this.profileUpdated).toBeVisible();
 

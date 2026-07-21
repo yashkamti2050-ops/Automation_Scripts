@@ -148,14 +148,14 @@ export class HomePage {
 
     }
 
-    async PayLaterTypeOrderCreation() {
+    async payLaterTypeOrderCreation() {
         await this.addItemToCart();
         await this.selectPayLaterPay();
         await this.placeOrder.click();
         await expect(this.orderPlaced).toBeVisible();
     }
 
-    async VoucherTypeOrderCreation() {
+    async voucherTypeOrderCreation() {
         await this.addItemToCart();
         await expect(this.voucherButton).toBeVisible();
         await this.selectVoucherPay();
@@ -171,7 +171,7 @@ export class HomePage {
         await expect(this.paymentRegistered).toBeVisible();
     }
 
-    async CardTypeOrderCreation(): Promise<void> {
+    async cardTypeOrderCreation(): Promise<void> {
         await this.addItemToCart();
         await expect(this.cardButton).toBeVisible();
         await this.selectCardPay();

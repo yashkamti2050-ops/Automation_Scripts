@@ -2,14 +2,14 @@ import { Locator, Page, expect } from "@playwright/test";
 import { testData } from "../Datastorage/testdata";
 export class LoginPage {
 
-    continueEmail: Locator
-    signinEmail: Locator
-    continueButton: Locator
-    passwordField: Locator
-    loginButton: Locator
-    cashier: Locator
-    navPanel: Locator
-    restaurantName: Locator
+    continueEmail: Locator;
+    signinEmail: Locator;
+    continueButton: Locator;
+    passwordField: Locator;
+    loginButton: Locator;
+    cashier: Locator;
+    navPanel: Locator;
+    restaurantName: Locator;
 
 
     constructor(private page: Page) {

@@ -14,16 +14,16 @@ test.describe('Home Page Payment Verification', () => {
     });
 
     test('Verify Pay later Payment Flow', async ({ homePage }) => {
-        await homePage.PayLaterTypeOrderCreation();
+        await homePage.payLaterTypeOrderCreation();
     });
 
     test('Verify Voucher payment flow', async ({ homePage }) => {
-        await homePage.VoucherTypeOrderCreation();
+        await homePage.voucherTypeOrderCreation();
     });
 
 
     test.skip('Verify Card payment flow', async ({ homePage }) => {
-        await homePage.CardTypeOrderCreation();
+        await homePage.cardTypeOrderCreation();
     });
 
     test.skip('Verify Discount is added to order cart', async ({ homePage }) => {
