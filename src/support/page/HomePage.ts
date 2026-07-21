@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test"
 import { testData } from "../Datastorage/testdata";
 export type PaymentResult = 'success' | 'failed' | 'timeout';
 export class HomePage {
