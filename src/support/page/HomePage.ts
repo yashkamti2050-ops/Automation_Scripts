@@ -44,14 +44,19 @@ export class HomePage {
     orderPlaced: Locator;
     discountAmountText: Locator;
     yesButton: Locator;
+    noButton: Locator;
     voucherConfirmation: Locator;
+    table: Locator;
+    eatInOrderConfirmation: Locator;
+    confirmationDialog: Locator;
+    confirmButton: Locator;
 
     constructor(private page: Page) {
 
         this.navPanel = this.page.getByTestId('nav-panel');
         this.cashierPage = this.page.locator('user-name');
         this.takeAway = this.page.locator('takeaway-tab-button');
-        this.eatIn = this.page.locator('eatin-tab-button');
+        this.eatIn = this.page.getByTestId('eatin-tab-button')
         this.delivery = this.page.locator('delivery-tab-button');
         this.plusIcon = this.page.getByTestId('increase-quantity-btn').first();
         this.minusIcon = this.page.locator('decrease-quantity-btn');
@@ -89,7 +94,13 @@ export class HomePage {
         this.orderPlaced = this.page.locator('.swal2-title', { hasText: 'order placed!' });
         this.discountAmountText = this.page.locator('.discount-amount');
         this.yesButton = this.page.getByTestId('yes-btn');
+        this.noButton = this.page.getByTestId('no-btn');
         this.voucherConfirmation = this.page.getByRole('dialog');
+        this.table = this.page.locator('div').filter({ hasText: /^6547$/ }).nth(1);
+        this.confirmationDialog = this.page.getByRole('dialog');
+        this.eatInOrderConfirmation = this.page.getByText('Placed unpaid — eat in orders');
+        this.confirmButton = this.page.getByTestId('confirm-btn');
+
     }
 
     async addItemToCart() {
@@ -274,7 +285,25 @@ export class HomePage {
     async verifyHomePageNavigation() {
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
-
+    
+    async eatInOrder (){
+        await this.eatIn.click();
+        await this.addItemToCart();
+        await this.placeOrder.click();
+        await expect(this.table).toBeVisible();
+        await this.table.click();
+        await this.confirmationDialog.waitFor({ state: 'visible', timeout: 3000 });
+        if(await this.confirmationDialog.isVisible())
+        {
+            await this.yesButton.click();
+            await expect(this.confirmationDialog).toBeVisible();
+        }
+        else {
+            await this.noButton.click();
+        }
+        await this.confirmButton.click();
+        await expect(this.orderPlaced).toBeVisible();
+    }
 
 
 

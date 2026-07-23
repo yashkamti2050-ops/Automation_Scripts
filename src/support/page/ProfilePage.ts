@@ -85,7 +85,6 @@ export class ProfilePage {
     await this.englishOption.click();
     await this.saveButton.click();
     await expect(this.profileUpdated).toBeVisible();
+}
 
-
-  }
 }

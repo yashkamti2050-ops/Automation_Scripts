@@ -1,4 +1,5 @@
 import { test } from '../support/fixture/Fixtures';
+import { HomePage } from '../support/page/HomePage';
 
 
 
@@ -31,5 +32,8 @@ test.describe('Home Page Payment Verification', () => {
         await homePage.addDiscountToOrder()
     });
 
-});
+    test.only('Verify EatIn Order Flow', async ({ homePage }) => {
+        await homePage.eatInOrder();
+    });
 
+})
