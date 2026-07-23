@@ -22,18 +22,13 @@ test.describe('Home Page Payment Verification', () => {
         await homePage.voucherTypeOrderCreation();
     });
 
-
-    test.skip('Verify Card payment flow', async ({ homePage }) => {
-        await homePage.cardTypeOrderCreation();
-    });
-
     test.skip('Verify Discount is added to order cart', async ({ homePage }) => {
         await homePage.cashTypeOrderCreation();
         await homePage.addDiscountToOrder()
     });
 
     test('Verify EatIn Order Flow', async ({ homePage }) => {
-        await homePage.eatInOrder();
+        await homePage.eatInOrderCreation();
     });
 
 })

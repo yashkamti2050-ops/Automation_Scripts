@@ -1,6 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test"
 import { testData } from "../Datastorage/testdata";
-export type PaymentResult = 'success' | 'failed' | 'timeout';
 export class HomePage {
 
     navPanel: Locator;
@@ -101,6 +100,7 @@ export class HomePage {
         this.eatInOrderConfirmation = this.page.getByText('Placed unpaid — eat in orders');
         this.confirmButton = this.page.getByTestId('confirm-btn');
 
+
     }
 
     async addItemToCart() {
@@ -116,7 +116,7 @@ export class HomePage {
 
     async selectCashPay() {
         await expect(this.cashButton).toBeVisible();
-        // await this.cashButton.click();
+
 
     }
     async selectVoucherPay() {
@@ -182,119 +182,20 @@ export class HomePage {
         await expect(this.paymentRegistered).toBeVisible();
     }
 
-    async cardTypeOrderCreation(): Promise<void> {
-        await this.addItemToCart();
-        await expect(this.cardButton).toBeVisible();
-        await this.selectCardPay();
-        await this.clickExactAmount()
 
-        const result = await this.waitForPaymentCompletion();
-
-        switch (result) {
-
-            case 'success':
-                await this.noItemsText.waitFor({ state: 'visible', timeout: 5000 });
-                // TODO: Replace with assertion once payment unsettled UI is finalised
-                console.log(' Card order complete — home screen confirmed');
-                await expect(this.orderButton).toBeVisible();
-
-                break;
-
-            case 'failed':
-                await expect(this.orderDetailPop).toBeVisible({
-                    timeout: 10000
-                });
-                await this.crossButton.click();
-                await expect(this.orderDetailPop).not.toBeVisible();
-                // TODO: Replace with assertion once payment settled UI is finalised
-                console.log(' Payment failed — modal closed, moving on');
-                await expect(this.orderButton).toBeVisible();
-
-                break;
-
-            case 'timeout': {
-                const isStillOpen = await this.orderDetailPop
-                    .isVisible()
-                    .catch(() => false);
-                if (isStillOpen) {
-                    await this.page.getByTestId('close-order-details-btn').click();
-                    await expect(this.orderDetailPop).not.toBeVisible();
-                }
-                console.log(' Timeout — cancelled and moved on');
-                await expect(this.orderButton).toBeVisible();
-
-                break;
-
-            }
-
-
-        }
-
-    }
-
-    async waitForPaymentCompletion(
-        timeoutMs = 90_000,
-        pollIntervalMs = 2_000
-    ): Promise<PaymentResult> {
-
-        const startTime = Date.now();
-        console.log(' Waiting for payment result on Android device');
-
-        while (Date.now() - startTime < timeoutMs) {
-            const elapsed = Math.round((Date.now() - startTime) / 1000);
-
-            const isHomeScreen = await this.noItemsText
-                .isVisible()
-                .catch(() => false);
-
-            if (isHomeScreen) {
-                console.log(` SUCCESS — home screen at ${elapsed}s`);
-                return 'success';
-            }
-
-            const isModalVisible = await this.orderDetailPop
-                .isVisible()
-                .catch(() => false);
-
-            if (isModalVisible) {
-                console.log(`FAILED — order detail modal at ${elapsed}s`);
-                return 'failed';
-            }
-
-            console.log(` Still waiting ${elapsed}s / ${timeoutMs / 1000}s`);
-            await this.page.waitForTimeout(pollIntervalMs);
-        }
-
-        console.log(` TIMEOUT at ${timeoutMs / 1000}s — clicking cancel`);
-
-        const isCancelVisible = await this.cancelButton
-            .isVisible()
-            .catch(() => false);
-
-        if (isCancelVisible) {
-            await this.cancelButton.click();
-            await this.orderDetailPop
-                .waitFor({ state: 'visible', timeout: 10_000 })
-                .catch(() => { });
-        }
-
-        return 'timeout';
-
-    }
 
     async verifyHomePageNavigation() {
         await expect(this.navPanel).toBeVisible({ timeout: 30000 });
     }
-    
-    async eatInOrder (){
+
+    async eatInOrderCreation() {
         await this.eatIn.click();
         await this.addItemToCart();
         await this.placeOrder.click();
         await expect(this.table).toBeVisible();
         await this.table.click();
         await this.confirmationDialog.waitFor({ state: 'visible', timeout: 3000 });
-        if(await this.confirmationDialog.isVisible())
-        {
+        if (await this.confirmationDialog.isVisible()) {
             await this.yesButton.click();
             await expect(this.confirmationDialog).toBeVisible();
         }
