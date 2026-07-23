@@ -32,7 +32,7 @@ test.describe('Home Page Payment Verification', () => {
         await homePage.addDiscountToOrder()
     });
 
-    test.only('Verify EatIn Order Flow', async ({ homePage }) => {
+    test('Verify EatIn Order Flow', async ({ homePage }) => {
         await homePage.eatInOrder();
     });
 
