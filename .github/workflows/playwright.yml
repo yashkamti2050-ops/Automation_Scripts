@@ -7,7 +7,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 60
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      TEST_USER_USERNAME: ${{ secrets.TEST_USER_USERNAME }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      TEST_PROFILE_EMAIL: ${{ secrets.TEST_PROFILE_EMAIL }}
+      TEST_PROFILE_PHONE_NUMBER: ${{ secrets.TEST_PROFILE_PHONE_NUMBER }}
+      TEST_PROFILE_FIRST_NAME: ${{ secrets.TEST_PROFILE_FIRST_NAME }}
+      TEST_PROFILE_LAST_NAME: ${{ secrets.TEST_PROFILE_LAST_NAME }}
+      TEST_PROFILE_FULL_NAME: ${{ secrets.TEST_PROFILE_FULL_NAME }}
+      TEST_PROFILE_LANGUAGE: ${{ secrets.TEST_PROFILE_LANGUAGE }}
+      TEST_VOUCHER_CODE: ${{ secrets.TEST_VOUCHER_CODE }}
+
     steps:
       - uses: actions/checkout@v4
 

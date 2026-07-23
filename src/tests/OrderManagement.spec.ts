@@ -1,16 +1,19 @@
-import { test, expect } from '../support/fixture/Fixtures';
-import { LoginPage } from '../support/pagemethods/Login';
-import { ordermangementpage } from '../support/pagemethods/OrderMangementpage';
+import { test } from '../support/fixture/Fixtures';
 
-test.describe('Order managemnet page', () => {
-    test.beforeEach(async ({ login, orderManagementPage }) => {
-        await login.loginpageNavigate();
-        await login.login();
-        await orderManagementPage.omNavigate();
+
+test.describe('Order Management Page Functionality Test', () => {
+
+    test.beforeEach(async ({ login, }) => {
+        await login.confirmOnHomePage();
+
 
     });
-    test ('click', async ({ orderManagementPage }) => {
-        await orderManagementPage.actionButtonClick();
-        await orderManagementPage.searchButtonClick();
+
+    test('Verify the Payment status of order cards', async ({ orderManagementPage }) => {
+
+        await orderManagementPage.verifyNavigationToOrderPage();
+        await orderManagementPage.verifyOrderDetailPopup();
     });
+
 })
+
