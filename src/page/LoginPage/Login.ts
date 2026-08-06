@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { testData } from "../Datastorage/testdata";
+import { testData } from '../../support/Datastorage/testdata';
 export class LoginPage {
 
     continueEmail: Locator;

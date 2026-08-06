@@ -1,10 +1,11 @@
 import { test as base } from '@playwright/test';
 import { Page } from '@playwright/test';
-import { LoginPage } from '../page/Login';
-import { ProfilePage } from '../page/ProfilePage';
-import { OrderManagementPage } from '../page/OrderManagementPage';
-import { HomePage } from '../page/HomePage';
+import { LoginPage } from '../../page/LoginPage/Login';
+import { ProfilePage } from '../../page/ProfilePage/ProfilePage';
+import { OrderManagementPage } from '../../page/OrderManagementPage/OrderManagementPage';
+import { HomePage } from '../../page/HomePage/HomePage';
 import { ensureAuthenticated } from '../helper/authHelper' // 
+import { orderManagementRegressionBug} from '../../page/OrderManagementPage/orderManagementRegressionBug';
 
 
 type MyFixtures = {
@@ -13,6 +14,7 @@ type MyFixtures = {
     orderManagementPage: OrderManagementPage;
     profilePage: ProfilePage;
     homePage: HomePage;
+    orderMangementRegression: orderManagementRegressionBug; 
 }
 
 export const test = base.extend<MyFixtures>({
@@ -24,7 +26,7 @@ export const test = base.extend<MyFixtures>({
 
     // This fixture does nothing but guarantee you're logged in
     authenticatedPage: async ({ page }, use) => {
-        await ensureAuthenticated(page);
+        await ensureAuthenticated(page);  //This LINE does the login check =
         await use(page);
 
     },
@@ -42,6 +44,11 @@ export const test = base.extend<MyFixtures>({
     homePage: async ({ page }, use) => {
         const homePage = new HomePage(page);
         await use(homePage);
+    },
+
+    orderMangementRegression: async({page}, use ) => {
+            const orderMangementRegression = new orderManagementRegressionBug(page);
+            await use(orderMangementRegression);
     }
 
 });

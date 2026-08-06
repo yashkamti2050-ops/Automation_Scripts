@@ -1,6 +1,6 @@
 import { test, request } from '@playwright/test';
-import { AuthApi } from '../api/AuthApi';
-import { testData } from '../support/Datastorage/testdata';
+import { AuthApi } from '../../../api/AuthApi';
+import { testData } from '../../../support/Datastorage/testdata';
 
 test('Authenticate', async () => {
 

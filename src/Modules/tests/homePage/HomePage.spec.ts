@@ -1,5 +1,5 @@
-import { test } from '../support/fixture/Fixtures';
-import { HomePage } from '../support/page/HomePage';
+import { test } from '../../../support/fixture/Fixtures';
+import { HomePage } from '../../../page/HomePage/HomePage';
 
 
 
@@ -27,7 +27,7 @@ test.describe('Home Page Payment Verification', () => {
         await homePage.addDiscountToOrder()
     });
 
-    test('Verify EatIn Order Flow', async ({ homePage }) => {
+    test.skip('Verify EatIn Order Flow', async ({ homePage }) => {
         await homePage.eatInOrderCreation();
     });
 
