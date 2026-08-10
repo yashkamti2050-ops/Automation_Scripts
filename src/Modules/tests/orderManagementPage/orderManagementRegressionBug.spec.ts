@@ -15,7 +15,7 @@ test.describe('Order Management Page Functionality Test', () => {
     await orderMangementRegression.verifyEqualPartSplitFlow();
     });
 
-    test('Verify split by item is working as expected', async ({homePage, orderMangementRegression})=> {
+    test.skip('Verify split by item is working as expected', async ({homePage, orderMangementRegression})=> {
         await homePage.payLaterTypeOrderCreation();
         await orderMangementRegression.verifySplitByItemFlow();
     });

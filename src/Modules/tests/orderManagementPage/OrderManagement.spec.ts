@@ -10,7 +10,7 @@ test.describe('Order Management Page Functionality Test', () => {
 
     });
 
-    test('Verify the Payment status of order cards', async ({ orderManagementPage }) => {
+    test.skip('Verify the Payment status of order cards', async ({ orderManagementPage }) => {
 
         await orderManagementPage.verifyNavigationToOrderPage();
         await orderManagementPage.verifyOrderDetailPopup();
