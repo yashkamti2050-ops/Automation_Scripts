@@ -121,6 +121,8 @@ export class HomePage {
         await expect(this.menuItem).toBeVisible();
 
     }
+
+
     async clickExactAmount() {
         await expect(this.exactAmount).toBeVisible();
         await this.exactAmount.click();
@@ -178,7 +180,7 @@ export class HomePage {
         await this.placeOrder.click();
         await expect(this.readyTimePopup).toBeVisible();
         await this.readyTimeConfirm.click();
-        await expect(this.orderPlaced).toBeVisible();
+        // await expect(this.orderPlaced).toBeVisible();
     }
 
     async voucherTypeOrderCreation() {

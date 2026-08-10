@@ -82,9 +82,4 @@ export class OrderManagementPage {
         await expect(this.searchForOrder).toBeVisible();
     }
 
-
-
-
-
-
 }

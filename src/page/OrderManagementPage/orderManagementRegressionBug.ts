@@ -1,6 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
 
-import { HomePage } from "../HomePage/HomePage";
 
 export class  orderManagementRegressionBug {
 
@@ -31,10 +30,13 @@ export class  orderManagementRegressionBug {
     itemCheckBox: Locator;
     continueButton: Locator;
     finalCashButton: Locator;
-    enterNumberOfPage: Locator;
+    enterNumberOfPart: Locator;
     keyPadButton: Locator;
     keyPadContinueButton: Locator;
     splitContinueButton: Locator;
+    cancelSplitButton: Locator;
+    enterAmountPage: Locator;
+    crossButton: Locator;
 
     constructor(private page: Page) {
         this.orderButton = this.page.getByTestId('cashier-home-orders-trigger');
@@ -64,11 +66,14 @@ export class  orderManagementRegressionBug {
         this.itemCheckBox = this.page.locator('.split-item-checkbox').nth(0);
         this.continueButton = this.page.locator('.form-button');
         this.finalCashButton = this.page.getByTestId('finalize-cash');
-        this.enterNumberOfPage = this.page.getByTestId('number-keypad-title')
+        this.enterNumberOfPart = this.page.getByTestId('number-keypad-title')
         this.keyPadButton = this.page.getByTestId('number-keypad-digit-2')
         this.keyPadContinueButton = this.page.getByTestId('keypad-submit-btn');
         this.splitContinueButton = this.page.getByRole('button', { name: 'Continue' });
-}
+        this.cancelSplitButton = this.page.getByTestId('cancel-split-button')
+        this.enterAmountPage = this.page.getByTestId('keypad-container');
+        this.crossButton = this.page.getByLabel('Close');
+      }
 async verfiyOrderModel(){
   await this.orderButton.click();
     await this.orderCard.click();
@@ -77,15 +82,28 @@ async verfiyOrderModel(){
     await this.splitButton.click();
     await expect(this.splitDialog).toBeVisible();
 }
+
+async verfiySplitIsDone(){
+  await this.orderCard.click();
+  await expect(this.orderModel).toBeVisible();
+  await expect(this.cancelSplitButton).toBeVisible();
+  await this.cancelSplitButton.hover();
+
+}
     
 
   async verifyEqualPartSplitFlow(){
     await this.verfiyOrderModel();
     await expect(this.splitEqualPart).toBeVisible();
     await this.splitEqualPart.click();
-    await expect(this.enterNumberOfPage).toBeVisible();
+    await expect(this.enterNumberOfPart).toBeVisible();
     await this.keyPadButton.click();
     await this.keyPadContinueButton.click();
+    await expect(this.enterAmountPage).toBeVisible(); 
+    await this.finalCashButton.click();
+    await this.finalCashButton.click();
+    await this.crossButton.click();
+    await this.verfiySplitIsDone();
 }
   async verifySplitByItemFlow(){
     await this.verfiyOrderModel();
