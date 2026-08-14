@@ -1,6 +1,10 @@
 import { APIRequestContext } from "@playwright/test";
+import { prependOnceListener } from "cluster";
 
 export class AuthApi {
+    // // static login(login: any) {
+    //     throw new Error("Method not implemented.");
+    // }
 
     constructor(private api: APIRequestContext) { }
 
@@ -16,11 +20,9 @@ export class AuthApi {
             }
         );
 
-        console.log(response.headers());
-
-        const loginBody = await response.json();
-
-        return loginBody.api_key;
+        const responseBody = await response.json();
+        console.log(responseBody);
+        return responseBody.api_key;
     }
 
     async getCurrentUser(apiKey: string) {
@@ -49,7 +51,7 @@ export class AuthApi {
 
          return {
             apiKey,
-            user,
+            // user,
         };
 
     }

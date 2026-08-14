@@ -6,6 +6,8 @@ import { OrderManagementPage } from '../../page/OrderManagementPage/OrderManagem
 import { HomePage } from '../../page/HomePage/HomePage';
 import { ensureAuthenticated } from '../helper/authHelper' // 
 import { orderManagementRegressionBug} from '../../page/OrderManagementPage/orderManagementRegressionBug';
+import { HomePageApi } from '../../api/HomePageApi';
+import { request } from 'http';
 
 
 type MyFixtures = {
@@ -15,6 +17,7 @@ type MyFixtures = {
     profilePage: ProfilePage;
     homePage: HomePage;
     orderMangementRegression: orderManagementRegressionBug; 
+    homePageApi: HomePageApi;
 }
 
 export const test = base.extend<MyFixtures>({
@@ -26,7 +29,7 @@ export const test = base.extend<MyFixtures>({
 
     // This fixture does nothing but guarantee you're logged in
     authenticatedPage: async ({ page }, use) => {
-        await ensureAuthenticated(page);  //This LINE does the login check =
+        await ensureAuthenticated(page);  //This LINE does the login check 
         await use(page);
 
     },
@@ -42,13 +45,19 @@ export const test = base.extend<MyFixtures>({
     },
 
     homePage: async ({ page }, use) => {
-        const homePage = new HomePage(page);
+        const homePage = new HomePage(page); 
         await use(homePage);
     },
 
     orderMangementRegression: async({page}, use ) => {
             const orderMangementRegression = new orderManagementRegressionBug(page);
             await use(orderMangementRegression);
-    }
+    },
+    
+    homePageApi: async({request}, use ) => {
+            const homePageApi = new HomePageApi(request);
+            await use(homePageApi);
+        },
+    });
 
-});
+

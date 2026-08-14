@@ -1,8 +1,5 @@
 import { test } from '../../../support/fixture/Fixtures';
 
-
-
-
 test.describe('Home Page Payment Verification', () => {
 
 
@@ -11,7 +8,7 @@ test.describe('Home Page Payment Verification', () => {
     });
 
     test('Verify Cash Payment flow', async ({  homePage }) => {
-        await homePage.cashTypeOrderCreation();6
+        await homePage.cashTypeOrderCreation();
     });
 
     test('Verify Pay later Payment Flow', async ({ homePage }) => {
