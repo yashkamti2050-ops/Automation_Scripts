@@ -9,8 +9,8 @@ test.describe('Order Management Page Functionality Test', () => {
 
 
     });
-    // These test are skipped because of issues in the spit functionaltiy
-   test.skip('Verify that  Split in equal part works as expected ', async ({homePage, orderMangementRegression }) => { 
+   
+    test.skip('Verify that  Split in equal part works as expected ', async ({homePage, orderMangementRegression }) => { 
     await homePage.payLaterTypeOrderCreation();
     await orderMangementRegression.verifyEqualPartSplitFlow();
     });

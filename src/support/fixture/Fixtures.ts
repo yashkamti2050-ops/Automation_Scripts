@@ -5,9 +5,9 @@ import { ProfilePage } from '../../page/ProfilePage/ProfilePage';
 import { OrderManagementPage } from '../../page/OrderManagementPage/OrderManagementPage';
 import { HomePage } from '../../page/HomePage/HomePage';
 import { ensureAuthenticated } from '../helper/authHelper' // 
-import { orderManagementRegressionBug} from '../../page/OrderManagementPage/orderManagementRegressionBug';
+import { OrderManagementRegressionBug } from "../../page/OrderManagementPage/orderManagementRegressionBug";
 import { HomePageApi } from '../../api/HomePageApi';
-import { request } from 'http';
+
 
 
 type MyFixtures = {
@@ -16,7 +16,7 @@ type MyFixtures = {
     orderManagementPage: OrderManagementPage;
     profilePage: ProfilePage;
     homePage: HomePage;
-    orderMangementRegression: orderManagementRegressionBug; 
+    orderMangementRegression: OrderManagementRegressionBug; 
     homePageApi: HomePageApi;
 }
 
@@ -50,7 +50,7 @@ export const test = base.extend<MyFixtures>({
     },
 
     orderMangementRegression: async({page}, use ) => {
-            const orderMangementRegression = new orderManagementRegressionBug(page);
+        const orderMangementRegression = new OrderManagementRegressionBug(page);
             await use(orderMangementRegression);
     },
     

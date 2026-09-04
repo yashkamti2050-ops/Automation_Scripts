@@ -1,24 +1,28 @@
 import { APIRequestContext, expect, request } from "@playwright/test";
 import { testData } from "../support/Datastorage/testdata";
 import { AuthApi } from "../api/AuthApi";
+import { APITestData } from "../support/Datastorage/ApiTestData";
+
+
 export class HomePageApi {
 
-    constructor(private api: APIRequestContext) { 
-
+    constructor(private api: APIRequestContext) {
     }
 
 
     async orderData(
-        apiKey: any,
+        apiKey: string,
         paymentMethod: string,
-        pickupTime?: number
-    ){
+        pickupTime?: number,
+        voucherCode?: number
+    ) {
+
         const response = await this.api.post(
-            'https://backendtest.lovingloyalty.com/places/75558/orders',
+            `${APITestData.apiBaseUrl}/places/${APITestData.placeId}/orders`,
             {
                 headers: {
-                    'api-key': apiKey,
-                    'content-type': 'application/json',
+                    "api-key": apiKey,
+                    "content-type": "application/json",
                 },
 
                 data: {
@@ -26,7 +30,7 @@ export class HomePageApi {
 
                     order_items: [
                         {
-                            menu_item_id: 75984,
+                            menu_item_id: APITestData.menuItemId,
                             quantity: 1,
                             addons: [],
                             removed_ingredients: [],
@@ -35,9 +39,9 @@ export class HomePageApi {
                         },
                     ],
 
-                    type: 'Takeaway',
-                    channel: 'Web',
-                    source: 'Cashier',
+                    type: "Takeaway",
+                    channel: "Web",
+                    source: "Cashier",
                     payment_method: paymentMethod,
                 },
             }
@@ -48,53 +52,143 @@ export class HomePageApi {
 
 
     async setupAuthenticatedApi() {
+
         const api = await request.newContext();
-    
+
         const authApi = new AuthApi(api);
-    
+
         const login = await authApi.login(
             testData.validUser.username,
             testData.validUser.password
         );
-    
+
         return {
             login
         };
     }
 
-    async validateApiResponse(response: any) {
-        expect(response.ok).toBeTruthy();
 
-        // Read response body
-        const orderBody = await response.json();
+    async voucherPayment(
+        apiKey: string,
+        orderId: number,
+        voucherId: number,
+        amount: number
+    ) {
 
+        const response = await this.api.post(
+            `${APITestData.apiBaseUrl}/places/${APITestData.placeId}/payments/order/${orderId}`,
+            {
+                headers: {
+                    "api-key": apiKey,
+                    "content-type": "application/json",
+                },
 
+                data: {
+                    amount: amount,
+                    cashback: 0,
+                    direction: "credit",
+                    receipt_number: `voucher-${crypto.randomUUID()}`,
+                    received: amount,
+                    status: "Settled",
+                    tip: 0,
+                    type: "voucher",
+                    voucher_id: voucherId,
+                },
+            }
+        );
 
-        // Basic API response assertion
-        if (typeof orderBody === 'object' && orderBody !== null && 'status' in orderBody) {
-            expect(orderBody.status).toBeTruthy();
-        } else {
-            throw new Error('Invalid response body: Missing "status" property');
-        }
+        return response;
     }
 
-//     // CASH
-    async orderCreation(apiKey: any) {
+
+    async validateApiResponse(response: any) {
+
+        console.log("STATUS:", response.status());
+        console.log("BODY:", await response.text());
+
+        expect(response.ok()).toBeTruthy();
+    }
+
+
+    async cashOrderCreation(apiKey: string) {
 
         return this.orderData(
             apiKey,
-            'cash'
+            "cash"
         );
     }
 
 
-//     // PAY LATER
-    async payLaterOrderCreation(apiKey: any) {
+    async payLaterOrderCreation(apiKey: string) {
 
         return this.orderData(
             apiKey,
-            'later',
+            "later",
             1786424983
         );
+    }
+
+
+    async voucherOrderCreation(apiKey: string) {
+
+        const response = await this.orderData(
+            apiKey,
+            "voucher"
+        );
+
+        const body = await response.json();
+
+        const orders = body["node.order"];
+        const order = Object.values(orders)[0] as { id: number };
+        const orderId = order.id;
+
+        console.log("ORDER ID:", orderId);
+
+        const paymentResponse = await this.voucherPayment(
+
+            apiKey,
+            orderId,
+            131509,
+            100
+        );
+
+
+
+        return response;
+    }
+
+    async eatInOrderCreation(apiKey: string) {
+        const response = await this.api.post(
+            `${APITestData.apiBaseUrl}/places/${APITestData.placeId}/orders`,
+            {
+                headers: {
+                    "api-key": apiKey,
+                    "content-type": "application/json",
+                },
+
+                data: {
+                    customer_id: 0,
+                    order_items: [
+                        {
+                            menu_item_id: 75984,
+                            quantity: 1,
+                            addons: [],
+                            removed_ingredients: [],
+                            instructions: [],
+                            status: null
+                        }
+                    ],
+                    type: "Eat In",
+                    channel: "Web",
+                    source: "Cashier",
+                    payment_method: "later",
+                    table_id: 79986,
+                    idempotency_key: `oc_${crypto.randomUUID()}`,
+                
+                },
+            }
+        );
+
+        return response;
     }
 }

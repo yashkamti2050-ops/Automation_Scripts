@@ -176,11 +176,28 @@ export class HomePage {
 
     async payLaterTypeOrderCreation() {
         await this.addItemToCart();
+    
         await this.selectPayLaterPay();
+    
+        await expect(this.placeOrder).toBeVisible();
         await this.placeOrder.click();
-        await expect(this.readyTimePopup).toBeVisible();
+    
+        await expect(this.readyTimePopup).toBeVisible({
+            timeout: 10000
+        });
+    
+        await expect(this.readyTimeConfirm).toBeEnabled({
+            timeout: 10000
+        });
+    
         await this.readyTimeConfirm.click();
-        // await expect(this.orderPlaced).toBeVisible();
+    
+        // IMPORTANT:
+        // Do not return until the application confirms
+        // that the order has actually been placed.
+        await expect(this.orderPlaced).toBeVisible({
+            timeout: 20000
+        });
     }
 
     async voucherTypeOrderCreation() {

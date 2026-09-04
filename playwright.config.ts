@@ -32,7 +32,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL,
     testIdAttribute: 'data-test-id',
-    trace: 'on-first-retry',
+    trace: "retain-on-failure",
+    video: "retain-on-failure",
   },
 
 
