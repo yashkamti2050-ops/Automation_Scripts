@@ -103,8 +103,8 @@ export class HomePageApi {
 
     async validateApiResponse(response: any) {
 
-        console.log("STATUS:", response.status());
-        console.log("BODY:", await response.text());
+        // console.log("STATUS:", response.status());
+        // console.log("BODY:", await response.text());
 
         expect(response.ok()).toBeTruthy();
     }
@@ -142,7 +142,7 @@ export class HomePageApi {
         const order = Object.values(orders)[0] as { id: number };
         const orderId = order.id;
 
-        console.log("ORDER ID:", orderId);
+       
 
         const paymentResponse = await this.voucherPayment(
 

@@ -19,7 +19,7 @@ test("Create Pay Late Order through API", async ({ homePageApi }) => {
 test.only("Create Voucher Pay Order through API", async({homePageApi}) => {
     const array = await homePageApi.setupAuthenticatedApi();
     const response = await homePageApi.voucherOrderCreation(array.login.apiKey);
-    console.log(response);
+   
     await homePageApi.validateApiResponse(response);
 });
 
