@@ -136,7 +136,17 @@ export class HomePageApi {
             "voucher"
         );
 
-        const body = await response.json();
+        console.log("STATUS:", response.status());
+        console.log("URL:", response.url());
+        console.log("CONTENT-TYPE:", response.headers()["content-type"]);
+        
+        const responseText = await response.text();
+        
+        console.log("RESPONSE:", responseText.substring(0, 1000));
+        
+        const body = JSON.parse(responseText);
+        
+       
 
         const orders = body["node.order"];
         const order = Object.values(orders)[0] as { id: number };
