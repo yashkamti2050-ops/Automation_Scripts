@@ -48,7 +48,7 @@ export class AuthApi {
 
          return {
             apiKey,
-            // user,
+          
         };
 
     }

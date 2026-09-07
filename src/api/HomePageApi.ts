@@ -103,8 +103,7 @@ export class HomePageApi {
 
     async validateApiResponse(response: any) {
 
-        // console.log("STATUS:", response.status());
-        // console.log("BODY:", await response.text());
+      
 
         expect(response.ok()).toBeTruthy();
     }
