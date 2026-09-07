@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test"
-import { testData } from "../Datastorage/testdata";
+import { testData } from "../../support/Datastorage/testdata";
 export class HomePage {
 
     navPanel: Locator;
@@ -49,6 +49,11 @@ export class HomePage {
     eatInOrderConfirmation: Locator;
     confirmationDialog: Locator;
     confirmButton: Locator;
+    customerName: Locator;
+    customerPhoneNumber: Locator;
+    readyTimePopup: Locator;
+    readyTimeConfirm: Locator;
+    moreDropdDown: Locator; 
 
     constructor(private page: Page) {
 
@@ -64,7 +69,7 @@ export class HomePage {
         this.laterButton = this.page.getByTestId('payment-btn-later');
         this.moreButton = this.page.locator('payment-btn-more');
         this.mobilePay = this.page.getByRole('button', { name: 'MobilePay' });
-        this.voucherButton = this.page.getByRole('button', { name: 'Voucher' });
+        this.voucherButton = this.page.getByRole('menuitem', {name: 'Voucher'})
         this.discountButton = this.page.getByTestId('discount-button');
         this.totalBill = this.page.getByTestId('total-bill-btn');
         this.selectedItem = this.page.getByTestId('selected-items-btn');
@@ -99,6 +104,13 @@ export class HomePage {
         this.confirmationDialog = this.page.getByRole('dialog');
         this.eatInOrderConfirmation = this.page.getByText('Placed unpaid — eat in orders');
         this.confirmButton = this.page.getByTestId('confirm-btn');
+        this.customerName = this.page.getByTestId('customer-name-input');
+        this.customerPhoneNumber = this.page.getByTestId('customer-phone-input');
+        this.readyTimePopup = this.page.getByTestId('ready-time-modal');
+        this.readyTimeConfirm = this.page.getByTestId('ready-time-confirm');
+        this.moreDropdDown = this.page.getByTestId('payment-btn-more');
+        
+
 
 
     }
@@ -109,6 +121,8 @@ export class HomePage {
         await expect(this.menuItem).toBeVisible();
 
     }
+
+
     async clickExactAmount() {
         await expect(this.exactAmount).toBeVisible();
         await this.exactAmount.click();
@@ -116,6 +130,7 @@ export class HomePage {
 
     async selectCashPay() {
         await expect(this.cashButton).toBeVisible();
+        await this.cashButton.click();
 
 
     }
@@ -161,15 +176,36 @@ export class HomePage {
 
     async payLaterTypeOrderCreation() {
         await this.addItemToCart();
+    
         await this.selectPayLaterPay();
+    
+        await expect(this.placeOrder).toBeVisible();
         await this.placeOrder.click();
-        await expect(this.orderPlaced).toBeVisible();
+    
+        await expect(this.readyTimePopup).toBeVisible({
+            timeout: 10000
+        });
+    
+        await expect(this.readyTimeConfirm).toBeEnabled({
+            timeout: 10000
+        });
+    
+        await this.readyTimeConfirm.click();
+    
+        // IMPORTANT:
+        // Do not return until the application confirms
+        // that the order has actually been placed.
+        await expect(this.orderPlaced).toBeVisible({
+            timeout: 20000
+        });
     }
 
     async voucherTypeOrderCreation() {
         await this.addItemToCart();
+        await this.moreDropdDown.click();
         await expect(this.voucherButton).toBeVisible();
-        await this.selectVoucherPay();
+        await this.voucherButton.click();
+        // await this.selectVoucherPay();
         await this.clickPlaceOrderButton();
         await expect(this.voucherPage).toBeVisible();
         for (const digit of testData.voucher.code) {
@@ -190,6 +226,8 @@ export class HomePage {
 
     async eatInOrderCreation() {
         await this.eatIn.click();
+        await this.customerName.fill(testData.userDetail.fullName);
+        await this.customerPhoneNumber.fill(testData.userDetail.phoneNumber);
         await this.addItemToCart();
         await this.placeOrder.click();
         await expect(this.table).toBeVisible();
@@ -205,7 +243,8 @@ export class HomePage {
         await this.confirmButton.click();
         await expect(this.orderPlaced).toBeVisible();
     }
-
+     
+    
 
 
 }

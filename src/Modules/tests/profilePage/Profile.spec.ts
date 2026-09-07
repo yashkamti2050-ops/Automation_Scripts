@@ -1,4 +1,4 @@
-import { test } from '../support/fixture/Fixtures';
+import { test } from '../../../support/fixture/Fixtures';
 
 
 test.describe('Profile Page  ', () => {

@@ -12,7 +12,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: 'src/tests',
+  testDir: 'src/Modules/tests',
   timeout: 90000,
   expect: {
     timeout: 10000
@@ -32,7 +32,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL,
     testIdAttribute: 'data-test-id',
-    trace: 'on-first-retry',
+    trace: "retain-on-failure",
+    video: "retain-on-failure",
   },
 
 
@@ -45,7 +46,7 @@ export default defineConfig({
       },
       {
         name: 'chromium',
-        // dependencies: ['auth'],
+        dependencies: ['auth'],
         use: {
           ...devices['Desktop Chrome'],
           storageState: 'src/page/auth/login.json',

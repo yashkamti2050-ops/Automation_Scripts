@@ -58,7 +58,7 @@ export class OrderManagementPage {
     }
     async verifyOrderDetailPopup() {
         await this.page.waitForLoadState('domcontentloaded');
-        await this.page.waitForLoadState('networkidle');
+        // await this.page.waitForLoadState('networkidle');
         await expect(this.orderCard).toBeVisible();
         await this.orderCard.click();
         await expect(this.orderModel).toBeVisible();
@@ -81,10 +81,5 @@ export class OrderManagementPage {
         await this.searchButton.click();
         await expect(this.searchForOrder).toBeVisible();
     }
-
-
-
-
-
 
 }
