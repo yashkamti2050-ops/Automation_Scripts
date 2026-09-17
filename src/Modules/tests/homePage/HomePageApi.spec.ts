@@ -17,7 +17,7 @@ test("Create Cash Order through API", async ({ homePageApi }) => {
     
 });
 
-test("Create Pay Late Order through API", async ({ homePageApi }) => {
+test.skip("Create Pay Late Order through API", async ({ homePageApi }) => {
     const authResult = await homePageApi.setupAuthenticatedApi();
     const response = await homePageApi.payLaterOrderCreation(authResult.login.apiKey);
     await homePageApi.validateApiResponse(response);

@@ -92,7 +92,7 @@ export class HomePage {
         this.noItemsText = this.page.locator('.cashier-rail-empty-state-text', { hasText: 'No items' });
         this.crossButton = this.page.getByTestId('order-details-close-btn');
         this.orderButton = this.page.getByTestId('cashier-home-orders-trigger');
-        this.menuItem = this.page.locator('.cashier-rail-populated-cart-item-desc');
+        this.menuItem = this.page.getByTestId('cart-item-quantity');
         this.collectAmountPopUp = this.page.getByTestId('collect-amount-header');
         this.paymentRegistered = this.page.locator('.swal2-title', { hasText: 'Payment registered' });
         this.orderPlaced = this.page.locator('.swal2-title', { hasText: 'order placed!' });
