@@ -7,6 +7,7 @@ import { HomePage } from '../../page/HomePage/HomePage';
 import { ensureAuthenticated } from '../helper/authHelper' // 
 import { OrderManagementRegressionBug } from "../../page/OrderManagementPage/orderManagementRegressionBug";
 import { HomePageApi } from '../../api/HomePageApi';
+import { OrderManagementApi } from '../../api/OrderManagementApi';
 
 
 
@@ -18,6 +19,7 @@ type MyFixtures = {
     homePage: HomePage;
     orderMangementRegression: OrderManagementRegressionBug; 
     homePageApi: HomePageApi;
+    orderManagementApi: OrderManagementApi; 
 }
 
 export const test = base.extend<MyFixtures>({
@@ -58,6 +60,11 @@ export const test = base.extend<MyFixtures>({
             const homePageApi = new HomePageApi(request);
             await use(homePageApi);
         },
+
+    orderManagementApi: async({request}, use ) => {
+        const orderManagementApi = new OrderManagementApi(request);
+        await use(orderManagementApi);
+    }, 
     });
 
 
