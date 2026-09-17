@@ -1,4 +1,4 @@
-import { LoginPage } from '../page/Login';
+import { LoginPage } from '../../page/LoginPage/Login';
 import { Page } from "@playwright/test";
 
 export async function isSessionExpired(page: Page) {

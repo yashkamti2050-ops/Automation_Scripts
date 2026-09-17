@@ -1,4 +1,5 @@
-import { test } from '../support/fixture/Fixtures';
+import { test } from '../../../support/fixture/Fixtures';
+
 
 
 test.describe('Order Management Page Functionality Test', () => {
@@ -8,7 +9,7 @@ test.describe('Order Management Page Functionality Test', () => {
 
 
     });
-
+    // Skipped because of backend issues which are still not fixed. 
     test('Verify the Payment status of order cards', async ({ orderManagementPage }) => {
 
         await orderManagementPage.verifyNavigationToOrderPage();

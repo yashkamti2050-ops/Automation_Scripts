@@ -1,4 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
+import { APITestData } from "../support/Datastorage/ApiTestData";
+
 
 export class AuthApi {
 
@@ -16,28 +18,29 @@ export class AuthApi {
             }
         );
 
-        console.log(response.headers());
-
-        const loginBody = await response.json();
-
-        return loginBody.api_key;
+        const responseBody = await response.json();
+        console.log(responseBody);
+        return responseBody.api_key;
     }
 
     async getCurrentUser(apiKey: string) {
-
         const response = await this.api.get(
-            'https://apitest.lovingloyalty.com/me',
+            `${APITestData.apiBaseUrl}/me`,
             {
                 headers: {
-                    'api-key': apiKey,
+                    "api-key": apiKey,
                 },
             }
         );
-
+    
         const userBody = await response.json();
-
+    
+        console.log(
+            "CURRENT USER:",
+            JSON.stringify(userBody, null, 2)
+        );
+    
         return userBody;
-
     }
 
     async login(email: string, password: string) {
@@ -49,7 +52,7 @@ export class AuthApi {
 
          return {
             apiKey,
-            user,
+          
         };
 
     }
